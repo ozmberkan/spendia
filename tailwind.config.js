@@ -10,6 +10,9 @@ export default {
       backgroundImage: {
         "main-bg": "url('assets/bg.jpeg')",
       },
+      fontFamily: {
+        montserrat: ["Montserrat", "sans-serif"],
+      },
     },
   },
   plugins: [require("tailwindcss-animated")],

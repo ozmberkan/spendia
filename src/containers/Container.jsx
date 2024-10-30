@@ -1,9 +1,5 @@
 const Container = ({ children }) => {
-  return (
-    <div className="flex h-screen flex-grow bg-main-bg bg-no-repeat bg-center bg-cover p-12">
-      {children}
-    </div>
-  );
+  return <div className="flex h-screen flex-grow ">{children}</div>;
 };
 
 export default Container;

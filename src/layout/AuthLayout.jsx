@@ -1,8 +1,9 @@
+// AuthLayout Component
 import { Outlet } from "react-router-dom";
 
 const AuthLayout = () => {
   return (
-    <div className="bg-red-500 flex-grow flex justify-center items-center min-h-screen">
+    <div className="flex min-h-screen">
       <Outlet />
     </div>
   );
