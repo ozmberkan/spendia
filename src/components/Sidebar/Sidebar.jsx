@@ -1,7 +1,9 @@
 import React from "react";
 
 const Sidebar = () => {
-  return <div className="px-5 bg-zinc-100 border-r h-full">Sidebar</div>;
+  return (
+    <div className="px-5 h-full   border-r w-44 rounded-l-xl ">Sidebar</div>
+  );
 };
 
 export default Sidebar;
