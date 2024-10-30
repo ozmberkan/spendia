@@ -109,16 +109,13 @@ const Register = () => {
               </span>
               <div className="flex-grow h-px bg-zinc-700"></div>
             </div>
-
-            <div className="w-full mt-1 flex justify-center items-center">
-              <span>
-                Hesabınız var mı?{" "}
-                <Link className="font-semibold hover:text-zinc-500" to="/login">
-                  Giriş yapın
-                </Link>
-              </span>
-            </div>
           </form>
+
+          <div className="w-full mt-5 flex justify-center items-center">
+            <Link className="font-semibold hover:text-zinc-500" to="/login">
+              Hesabınız var mı? Giriş yapın
+            </Link>
+          </div>
         </div>
       </div>
       <div className="w-1/2 h-full  p-3">

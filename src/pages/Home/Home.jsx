@@ -15,9 +15,7 @@ const Home = () => {
       await signOut(auth);
       localStorage.removeItem("user");
       toast.success("Çıkış yapıldı");
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000);
+      window.location.reload();
     } catch (error) {}
   };
 

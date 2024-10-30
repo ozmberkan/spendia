@@ -33,6 +33,8 @@ const Login = () => {
   };
   const { status } = useSelector((state) => state.user);
 
+  console.log(status);
+
   useEffect(() => {
     if (status === "failed") {
       toast.error("Bir hata ile karşılaştık, bilgilerinizi kontrol edin.");
@@ -133,18 +135,12 @@ const Login = () => {
                 Apple
               </button>
             </div>
-            <div className="w-full mt-5 flex justify-center items-center">
-              <span>
-                Hesabınız yok mu?{" "}
-                <Link
-                  className="font-semibold hover:text-zinc-500"
-                  to="/register"
-                >
-                  Kayıt olun
-                </Link>
-              </span>
-            </div>
           </form>
+          <div className="w-full mt-5 flex justify-center items-center">
+            <Link className="font-semibold hover:text-zinc-500" to="/register">
+              Hesabınız yok mu? Kayıt olun
+            </Link>
+          </div>
         </div>
       </div>
       <div className="w-1/2 h-full p-3">
