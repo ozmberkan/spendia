@@ -1,5 +1,5 @@
 const Container = ({ children }) => {
-  return <div className="flex items-start justify-start">{children}</div>;
+  return <div className="flex h-screen flex-grow">{children}</div>;
 };
 
 export default Container;

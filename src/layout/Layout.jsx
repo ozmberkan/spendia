@@ -1,11 +1,11 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import Sidebar from "~/components/Sidebar/Sidebar";
 import Container from "~/containers/Container";
+import { Outlet } from "react-router-dom";
 
 const Layout = () => {
   return (
     <Container>
-      <Sidebar />
+      {/* <Sidebar /> */}
       <Outlet />
     </Container>
   );
