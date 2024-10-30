@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { data } from "autoprefixer";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -47,22 +46,29 @@ export const loginService = createAsyncThunk(
   "user/login",
   async (data, { rejectWithValue }) => {
     try {
-      const userCredential = signInWithEmailAndPassword(
+      const userCredential = await signInWithEmailAndPassword(
         auth,
         data.email,
         data.password
       );
-
       const user = userCredential.user;
 
       const userRef = doc(db, "users", user.uid);
       const userDoc = await getDoc(userRef);
-      const userData = userDoc.data();
+
+      const userData = {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        emailVerified: user.emailVerified,
+        phoneNumber: user.phoneNumber,
+        budget: userDoc.data().budget,
+      };
 
       return userData;
     } catch (error) {
-      console.log(error);
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );

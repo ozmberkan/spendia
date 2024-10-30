@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerService } from "~/redux/slices/userSlice";
 import toast from "react-hot-toast";
 import Logo from "~/assets/signinlogo.svg";
+import { useEffect } from "react";
 
 const Register = () => {
   ring.register();
@@ -26,14 +27,22 @@ const Register = () => {
   const registerHandle = async (data) => {
     try {
       dispatch(registerService(data));
-      toast.success("Kayıt işlemi başarılı, yönlendiriliyorsun.");
-      setTimeout(() => {
-        navigate("/");
-      }, 1500);
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (status === "failed") {
+      toast.error("Bir hata ile karşılaştık, bilgilerinizi kontrol edin.");
+    }
+    if (status === "succeeded") {
+      toast.success("Başarıyla kayıt oldunuz, yönlendiriliyorsunuz...");
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    }
+  }, [status]);
 
   return (
     <div className="flex justify-center items-center h-screen flex-grow">

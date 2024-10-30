@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginService } from "~/redux/slices/userSlice";
 import Logo from "~/assets/signinlogo.svg";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 const Login = () => {
   ring.register();
@@ -23,19 +24,26 @@ const Login = () => {
     resolver: zodResolver(loginScheme),
   });
 
-  const { status } = useSelector((state) => state.user);
-
   const loginHandle = async (data) => {
     try {
       dispatch(loginService(data));
-      toast.success("Giriş başarılı, yönlendiriliyorsun.");
-      setTimeout(() => {
-        navigate("/");
-      }, 1500);
     } catch (error) {
       console.log(error);
     }
   };
+  const { status } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (status === "failed") {
+      toast.error("Bir hata ile karşılaştık, bilgilerinizi kontrol edin.");
+    }
+    if (status === "succeeded") {
+      toast.success("Başarıyla giriş yaptınız, yönlendiriliyorsunuz...");
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    }
+  }, [status]);
 
   return (
     <div className="flex justify-center items-center h-screen flex-grow">
@@ -80,11 +88,17 @@ const Login = () => {
               </div>
             ))}
             <div className="w-full  flex justify-end items-center">
-              <Link className="text-sm font-semibold hover:text-zinc-500">
+              <Link
+                to="/forgot-password"
+                className="text-sm font-semibold hover:text-zinc-500"
+              >
                 Şifremi Unuttum
               </Link>
             </div>
-            <button className="bg-primary flex justify-center items-center px-4 py-2 rounded-md text-secondary font-semibold hover:bg-secondary hover:text-primary transition-colors duration-300">
+            <button
+              type="submit"
+              className="bg-primary flex justify-center items-center px-4 py-2 rounded-md text-secondary font-semibold hover:bg-secondary hover:text-primary transition-colors duration-300"
+            >
               {status === "loading" ? (
                 <l-ring
                   size="24"
@@ -105,10 +119,16 @@ const Login = () => {
               <div className="flex-grow h-px bg-zinc-700"></div>
             </div>
             <div className=" w-full flex justify-center items-center gap-x-5">
-              <button className="bg-white border flex items-center gap-x-2 justify-center w-full px-4 py-2 rounded-md text-zinc-700 font-semibold">
+              <button
+                type="button"
+                className="bg-white border flex items-center gap-x-2 justify-center w-full px-4 py-2 rounded-md text-zinc-700 font-semibold"
+              >
                 <FcGoogle size={20} /> Google
               </button>{" "}
-              <button className="bg-white border flex items-center gap-x-2 justify-center w-full px-4 py-2 rounded-md text-zinc-700 font-semibold">
+              <button
+                type="button"
+                className="bg-white border flex items-center gap-x-2 justify-center w-full px-4 py-2 rounded-md text-zinc-700 font-semibold"
+              >
                 <FaApple size={20} className="text-black" />
                 Apple
               </button>
