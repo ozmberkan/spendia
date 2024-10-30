@@ -1,51 +1,101 @@
-// Login Component
-import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
-
+import { loginForm } from "~/data/data";
+import { loginScheme } from "~/validation/scheme";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ring } from "ldrs";
+import { useDispatch, useSelector } from "react-redux";
+import { loginService } from "~/redux/slices/userSlice";
 import Logo from "~/assets/signinlogo.svg";
+import toast from "react-hot-toast";
 
 const Login = () => {
+  ring.register();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(loginScheme),
+  });
+
+  const { status } = useSelector((state) => state.user);
+
+  const loginHandle = async (data) => {
+    try {
+      dispatch(loginService(data));
+      toast.success("Giriş başarılı, yönlendiriliyorsun.");
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex justify-center items-center h-screen flex-grow">
       <div className="w-1/2 h-full p-3">
         <div className="w-full h-full flex items-center justify-center flex-col gap-1 p-4">
-          <img src={Logo} className="w-12 drop-shadow-xl mb-6" />
+          <img
+            src={Logo}
+            className="w-12 drop-shadow-xl mb-6 hover:scale-105 transition-all duration-300"
+          />
           <h1 className="font-bold text-xl">
             Tekrardan Spendia'ya Hoş Geldin!
           </h1>
           <p className="text-sm text-zinc-400">
             E-Posta ve parolanı girerek sisteme ulaşabilirsin.
           </p>
-          <form className="w-1/2 mt-6 flex flex-col gap-y-4">
-            <div className="flex flex-col">
-              <label className="text-xs font-semibold text-zinc-500">
-                E-Posta
-              </label>
-              <input
-                type="text"
-                placeholder="E-Postanızı giriniz..."
-                className="px-4 py-2 rounded-lg border"
-              />
-            </div>
-            <div className="flex flex-col">
-              <label className="text-xs font-semibold text-zinc-500">
-                Parola
-              </label>
-              <input
-                type="password"
-                placeholder="Parolanızı giriniz..."
-                className="px-4 py-2 rounded-lg border"
-              />
-            </div>
+          <form
+            className="w-1/2 mt-6 flex flex-col gap-y-4"
+            onSubmit={handleSubmit(loginHandle)}
+          >
+            {loginForm.map((input) => (
+              <div key={input.id} className="flex flex-col">
+                <label
+                  className={`text-xs font-semibold text-zinc-500 ${
+                    errors[input.name] && "text-red-500"
+                  }`}
+                >
+                  {input.label}
+                </label>
+                <input
+                  type={input.type}
+                  placeholder={
+                    errors[input.name]
+                      ? errors[input.name].message
+                      : input.placeholder
+                  }
+                  className={`px-4 py-2 rounded-lg border outline-none text-sm ${
+                    errors[input.name] &&
+                    "border-red-500 placeholder:text-red-500"
+                  }`}
+                  {...register(input.name)}
+                />
+              </div>
+            ))}
             <div className="w-full  flex justify-end items-center">
               <Link className="text-sm font-semibold hover:text-zinc-500">
                 Şifremi Unuttum
               </Link>
             </div>
-            <button className="bg-primary px-4 py-2 rounded-md text-secondary font-semibold">
-              Giriş Yap
+            <button className="bg-primary flex justify-center items-center px-4 py-2 rounded-md text-secondary font-semibold hover:bg-secondary hover:text-primary transition-colors duration-300">
+              {status === "loading" ? (
+                <l-ring
+                  size="24"
+                  stroke="3"
+                  bg-opacity="0"
+                  speed="2"
+                  color="#80bd3a"
+                />
+              ) : (
+                "Giriş Yap"
+              )}
             </button>
             <div className="relative flex items-center w-full py-5">
               <div className="flex-grow h-px bg-zinc-700"></div>
@@ -66,7 +116,10 @@ const Login = () => {
             <div className="w-full mt-5 flex justify-center items-center">
               <span>
                 Hesabınız yok mu?{" "}
-                <Link className="font-semibold" to="/register">
+                <Link
+                  className="font-semibold hover:text-zinc-500"
+                  to="/register"
+                >
                   Kayıt olun
                 </Link>
               </span>
@@ -74,7 +127,7 @@ const Login = () => {
           </form>
         </div>
       </div>
-      <div className="w-1/2 h-full  p-3">
+      <div className="w-1/2 h-full p-3">
         <div className="bg-[#202020] rounded-xl shadow-xl h-full"></div>
       </div>
     </div>
