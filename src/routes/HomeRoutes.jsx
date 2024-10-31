@@ -6,6 +6,7 @@ import Budget from "~/pages/Budget/Budget";
 import Goal from "~/pages/Goal/Goal";
 import Settings from "~/pages/Settings/Settings";
 import Premium from "~/pages/Premium/Premium";
+import Contacts from "~/pages/Contacts/Contacts";
 
 export const HomeRoutes = {
   path: "/",
@@ -34,6 +35,11 @@ export const HomeRoutes = {
     {
       path: "/settings",
       element: <Settings />,
+      loader: () => authLoader(["user", "admin"]),
+    },
+    {
+      path: "/contacts",
+      element: <Contacts />,
       loader: () => authLoader(["user", "admin"]),
     },
     {
