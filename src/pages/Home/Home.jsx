@@ -8,8 +8,6 @@ import { signOut } from "firebase/auth";
 const Home = () => {
   const { user } = useSelector((store) => store.user);
 
-  const navigate = useNavigate();
-
   const exit = async () => {
     try {
       await signOut(auth);
