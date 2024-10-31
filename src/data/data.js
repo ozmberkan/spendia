@@ -40,7 +40,7 @@ export const mainSide = [
 
 export const goalSide = [
   { id: 1, label: "Hedefler", icon: TbFlag, path: "/goals" },
-  { id: 2, label: "Ayarlarım", icon: TbSettings, path: "/settings" },
+  { id: 2, label: "Ayarlarım", icon: TbSettings, path: "settings" },
 ];
 
 export const bottomSide = [

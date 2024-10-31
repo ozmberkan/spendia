@@ -34,7 +34,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`h-full border-r flex flex-col items-center transition-all duration-300 justify-start bg-zinc-50 w-60`}
+      className={`h-full border-r flex flex-col items-center transition-all duration-300 justify-start bg-zinc-50 min-w-60`}
     >
       <div className={`w-full  flex justify-between items-center px-4 py-2  `}>
         <img src={Logo} className="w-10 cursor-pointer" />
@@ -48,8 +48,8 @@ const Sidebar = () => {
             <div className="flex flex-col gap-y-5 mt-4">
               {mainSide.map((item) => (
                 <Link
+                  to={item.path}
                   key={item.id}
-                  to={item.to}
                   className="text-sm border w-full py-2 bg-zinc-100 rounded-md px-4 flex justify-start items-center gap-x-2 hover:bg-zinc-200/50"
                 >
                   <item.icon size={20} />
@@ -65,8 +65,8 @@ const Sidebar = () => {
             <div className="flex flex-col gap-y-5 mt-4">
               {goalSide.map((item) => (
                 <Link
+                  to={item.path}
                   key={item.id}
-                  to={item.to}
                   className="text-sm border w-full py-2 bg-zinc-100 rounded-md px-4 flex justify-start items-center gap-x-2 hover:bg-zinc-200/50"
                 >
                   <item.icon size={20} />
@@ -85,7 +85,7 @@ const Sidebar = () => {
                       to={item.path}
                       className={`text-sm border w-full py-2 bg-zinc-100 rounded-md px-4 flex justify-start items-center gap-x-2 hover:bg-zinc-200/50 ${
                         item.label === "Premium" &&
-                        "bg-emerald-100 text-emerald-500 border-emerald-500 shadow-xl shadow-emerald-500/20 relative overflow-hidden hover:bg-emerald-300/50"
+                        "bg-emerald-100 text-emerald-500 font-bold border-emerald-500 shadow-xl shadow-emerald-500/20 relative overflow-hidden hover:bg-emerald-300/50"
                       }`}
                     >
                       {item.label === "Premium" && (
