@@ -13,6 +13,9 @@ export default {
       fontFamily: {
         montserrat: ["Montserrat", "sans-serif"],
       },
+      dropShadow: {
+        custom: "20px 20px 100px rgb(15, 73, 57)",
+      },
     },
   },
   plugins: [require("tailwindcss-animated")],

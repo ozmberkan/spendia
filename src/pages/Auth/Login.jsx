@@ -9,6 +9,7 @@ import { ring } from "ldrs";
 import { useDispatch, useSelector } from "react-redux";
 import { loginService } from "~/redux/slices/userSlice";
 import Logo from "~/assets/signinlogo.svg";
+import Logo2 from "~/assets/icon.svg";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
 
@@ -144,7 +145,9 @@ const Login = () => {
         </div>
       </div>
       <div className="w-1/2 h-full p-3">
-        <div className="bg-[#202020] rounded-xl shadow-xl h-full"></div>
+        <div className="bg-[#202020] rounded-xl shadow-xl h-full flex justify-center items-center">
+          <img src={Logo2} className="w-[700px] drop-shadow-custom" />
+        </div>
       </div>
     </div>
   );

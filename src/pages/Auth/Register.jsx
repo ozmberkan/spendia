@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerService } from "~/redux/slices/userSlice";
 import toast from "react-hot-toast";
 import Logo from "~/assets/signinlogo.svg";
+import Logo2 from "~/assets/icon.svg";
 import { useEffect } from "react";
 
 const Register = () => {
@@ -52,7 +53,7 @@ const Register = () => {
             src={Logo}
             className="w-12 drop-shadow-xl mb-6 hover:scale-105 transition-all duration-300"
           />
-          <h1 className="font-bold text-xl">Spendia'ya Hoş Geldin!</h1>
+          <h1 className="font-bold text-xl">Spendia'ya Kayıt Ol!</h1>
           <p className="text-sm text-zinc-400">
             E-Posta ve parolanı girerek sisteme kayıt olabilirsin.
           </p>
@@ -85,7 +86,10 @@ const Register = () => {
               </div>
             ))}
             <div className="w-full  flex justify-end items-center">
-              <Link className="text-sm font-semibold hover:text-zinc-500">
+              <Link
+                className="text-sm font-semibold hover:text-zinc-500"
+                to="/forgot-password"
+              >
                 Şifremi Unuttum
               </Link>
             </div>
@@ -118,8 +122,10 @@ const Register = () => {
           </div>
         </div>
       </div>
-      <div className="w-1/2 h-full  p-3">
-        <div className="bg-[#202020] rounded-xl shadow-xl h-full"></div>
+      <div className="w-1/2 h-full p-3">
+        <div className="bg-[#202020] rounded-xl shadow-xl h-full flex justify-center items-center">
+          <img src={Logo2} className="w-[700px] drop-shadow-custom" />
+        </div>
       </div>
     </div>
   );
