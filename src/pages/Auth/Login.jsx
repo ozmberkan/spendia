@@ -12,6 +12,7 @@ import Logo from "~/assets/signinlogo.svg";
 import Logo2 from "~/assets/icon.svg";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 const Login = () => {
   ring.register();
@@ -49,7 +50,12 @@ const Login = () => {
   }, [status]);
 
   return (
-    <div className="flex justify-center items-center h-screen flex-grow">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      className="flex justify-center items-center h-screen flex-grow"
+    >
       <div className="w-1/2 h-full p-3">
         <div className="w-full h-full flex items-center justify-center flex-col gap-1 p-4">
           <img
@@ -149,7 +155,7 @@ const Login = () => {
           <img src={Logo2} className="w-[700px] drop-shadow-custom" />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
