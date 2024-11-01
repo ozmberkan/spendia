@@ -6,16 +6,7 @@ import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { signOut } from "firebase/auth";
 import { auth } from "~/firebase/firebase";
-import {
-  TbDoorExit,
-  TbHome,
-  TbMessageQuestion,
-  TbMoneybag,
-  TbSettings,
-  TbUser,
-} from "react-icons/tb";
-import { GoGoal } from "react-icons/go";
-import { MdOutlineVerified } from "react-icons/md";
+
 import { bottomSide, goalSide, mainSide } from "~/data/data";
 
 const Sidebar = () => {
