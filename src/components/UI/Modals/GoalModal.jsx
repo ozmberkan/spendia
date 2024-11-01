@@ -22,7 +22,7 @@ const GoalModal = ({ setIsGoalModal }) => {
           <h2 className="text-2xl font-bold">Hedef Oluştur</h2>
           <button
             onClick={() => setIsGoalModal(false)}
-            className=" text-gray-400 hover:text-gray-600 focus:outline-none"
+            className=" text-gray-400 hover:text-gray-600 focus:outline -none"
           >
             <IoCloseSharp size={20} />
           </button>

@@ -43,7 +43,7 @@ const Premium = () => {
     >
       <img src={bg} className="z-0 absolute top-0" />
 
-      <div className="w-[700px]  bg-white shadow-2xl rounded-xl z-10 px-4 py-7 flex justify-start items-center flex-col">
+      <div className="w-[650px]  bg-white shadow-2xl rounded-xl z-10 px-4 py-7 flex justify-start items-center flex-col">
         <div className="font-bold text-5xl bg-clip-text text-transparent from-[#3ac396] to-primary bg-gradient-to-l relative ">
           <WiStars
             size={65}

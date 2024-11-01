@@ -27,8 +27,14 @@ const Sidebar = () => {
     <div
       className={`h-full border-r flex flex-col items-center transition-all duration-300 justify-start bg-zinc-50 min-w-60`}
     >
-      <div className={`w-full  flex justify-between items-center px-4 py-2  `}>
+      <div
+        className={`w-full  flex justify-start gap-x-2 items-center px-4 py-2  `}
+      >
         <img src={Logo} className="w-10 cursor-pointer" />
+        <div className="flex flex-col ">
+          <span className="font-bold text-primary">Spendia</span>
+          <span className="text-xs">Tutarlı Ol!</span>
+        </div>
       </div>
       <div className="w-full h-full  px-4 py-2">
         <div className="flex flex-col gap-y-7 h-full">

@@ -62,7 +62,6 @@ const Contacts = () => {
       />
       <div className="w-full flex justify-between items-center">
         <h1 className="font-bold text-4xl">İletişim</h1>
-        <img src={logoTam} className="w-64  mb-5" />
       </div>
       <p className="text-zinc-500 font-medium mt-3">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem at quia

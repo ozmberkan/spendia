@@ -125,7 +125,7 @@ const Profile = () => {
                     onClick={() => setIsEditMode(!isEditMode)}
                     className="px-4 py-2 flex items-center gap-x-1 bg-primary rounded-md text-secondary font-semibold"
                   >
-                    <FaRegSave /> Düzenle
+                    <TbEditCircle /> Düzenle
                   </button>
                 </div>
               </div>
