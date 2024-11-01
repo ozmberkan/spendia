@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserByID } from "~/redux/slices/userSlice";
 import { infinity } from "ldrs";
+import { motion } from "framer-motion";
+import Breadcrumb from "~/components/UI/Breadcrumb";
 
 const Profile = () => {
   const { user, status } = useSelector((store) => store.user);
@@ -28,7 +30,18 @@ const Profile = () => {
   }
 
   return (
-    <div className="p-4 h-full  w-full ">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="p-4 h-full  w-full "
+    >
+      <Breadcrumb
+        firstLabel={"Anasayfa"}
+        firstLink={"/"}
+        secondLabel={"Profil"}
+        secondLink={"/profile"}
+      />
       <div className="w-full bg-red-500 px-4 py-2 flex justify-start gap-x-2 items-center">
         <img
           src="https://avatars.githubusercontent.com/u/148571945?v=4"
@@ -39,7 +52,7 @@ const Profile = () => {
           <p className="text-lg">{user.email}</p>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
