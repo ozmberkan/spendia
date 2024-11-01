@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Breadcrumb = ({ firstLink, secondLink, firstLabel, secondLabel }) => {
   return (
-    <div className="py-2 ">
+    <div className="px-4 py-2 ">
       <Link
         className={`${firstLink ? "text-blue-500" : "text-zinc-700"}`}
         to={firstLink}

@@ -6,8 +6,10 @@ import {
   TbHome,
   TbMessageQuestion,
   TbMoneybag,
+  TbPhoneCall,
   TbSettings,
   TbUser,
+  TbUserCheck,
 } from "react-icons/tb";
 
 export const loginForm = [
@@ -60,4 +62,25 @@ export const bottomSide = [
   },
 
   { id: 3, label: "Çıkış Yap", icon: TbDoorExit, type: "button" },
+];
+
+export const profileInputs = [
+  {
+    id: 1,
+    placeholder: "İsim Soyisim",
+    name: "displayName",
+    icon: TbUserCheck,
+  },
+  {
+    id: 2,
+    placeholder: "Telefon Numarası",
+    name: "phoneNumber",
+    icon: TbPhoneCall,
+  },
+  {
+    id: 3,
+    placeholder: "Bütçe (Aylık Maaş)",
+    name: "budget",
+    icon: TbMoneybag,
+  },
 ];

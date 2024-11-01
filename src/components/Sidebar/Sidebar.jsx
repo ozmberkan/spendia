@@ -100,6 +100,7 @@ const Sidebar = () => {
                   ) : (
                     <button
                       key={item.id}
+                      onClick={exit}
                       className="text-sm border w-full py-2 bg-zinc-100 hover:text-red-500 rounded-md px-4 flex justify-start items-center gap-x-2"
                     >
                       <item.icon size={20} />

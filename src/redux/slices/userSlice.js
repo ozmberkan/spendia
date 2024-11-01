@@ -27,10 +27,10 @@ export const registerService = createAsyncThunk(
         email: user.email,
         displayName: user.displayName,
         photoURL: user.photoURL,
-        emailVerified: user.emailVerified,
         phoneNumber: user.phoneNumber,
         budget: 0,
         role: "user",
+        premium: false,
       };
 
       const userRef = doc(db, "users", user.uid);
@@ -62,10 +62,10 @@ export const loginService = createAsyncThunk(
         email: user.email,
         displayName: user.displayName,
         photoURL: user.photoURL,
-        emailVerified: user.emailVerified,
         phoneNumber: user.phoneNumber,
         budget: userDoc.data().budget,
         role: userDoc.data().role,
+        premium: userDoc.data().premium,
       };
 
       return userData;
