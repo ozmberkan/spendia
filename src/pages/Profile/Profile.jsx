@@ -12,17 +12,26 @@ import { doc, updateDoc } from "firebase/firestore";
 import toast from "react-hot-toast";
 import { auth, db } from "~/firebase/firebase";
 import { sendEmailVerification, sendPasswordResetEmail } from "firebase/auth";
+import Loader from "~/components/UI/Loader";
+import profilePhoto from "~/assets/profile.png";
+import { MdVerified } from "react-icons/md";
 
 const Profile = () => {
   const { user, status } = useSelector((store) => store.user);
   const [isEditMode, setIsEditMode] = useState(false);
+  const dispatch = useDispatch();
+
   infinity.register();
+
+  useEffect(() => {
+    dispatch(getUserByID(user.uid));
+  }, [dispatch]);
 
   const { register, handleSubmit } = useForm({
     defaultValues: {
-      displayName: user?.displayName,
-      phoneNumber: user?.phoneNumber,
-      budget: user?.budget,
+      displayName: user.displayName,
+      phoneNumber: user.phoneNumber,
+      budget: user.budget,
     },
   });
 
@@ -65,24 +74,8 @@ const Profile = () => {
     }
   };
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getUserByID(user.uid));
-  }, []);
-
   if (status === "loading") {
-    return (
-      <div className="w-full flex-grow flex justify-center items-center">
-        <l-infinity
-          size="200"
-          stroke="10"
-          stroke-length="0.15"
-          bg-opacity="0.1"
-          speed="1.3"
-          color="#80bd3a"
-        />
-      </div>
-    );
+    return <Loader />;
   }
 
   return (
@@ -101,14 +94,11 @@ const Profile = () => {
         />
         <div className="w-full px-4 py-2 flex justify-start gap-x-3 items-center">
           <div className="relative">
-            <img
-              src="https://avatar.iran.liara.run/public/34"
-              className="w-20 rounded-full shadow-md"
-            />
+            <img src={profilePhoto} className="w-20 rounded-full shadow-md" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-primary">
-              {user.displayName}
+            <h1 className="text-2xl font-bold text-primary flex gap-x-2 items-center">
+              {user.displayName} {user.premium === true && <MdVerified />}
             </h1>
             <p className="text-lg text-primary">{user.email}</p>
           </div>

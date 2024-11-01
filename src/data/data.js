@@ -84,3 +84,28 @@ export const profileInputs = [
     icon: TbMoneybag,
   },
 ];
+
+export const contactsInputs = [
+  {
+    id: 1,
+    name: "name",
+    placeholder: "İsim Soyisim",
+    type: "text",
+    icon: TbUserCheck,
+  },
+  {
+    id: 3,
+    name: "email",
+    placeholder: "E-posta Adresiniz",
+    type: "email",
+    icon: TbUserCheck,
+  },
+  { id: 4, name: "title", placeholder: "Konu", type: "text", icon: GoGoal },
+  {
+    id: 5,
+    name: "message",
+    placeholder: "Mesajınız",
+    type: "text",
+    icon: GoGoal,
+  },
+];
