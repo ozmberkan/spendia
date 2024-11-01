@@ -15,6 +15,7 @@ import { sendEmailVerification, sendPasswordResetEmail } from "firebase/auth";
 import Loader from "~/components/UI/Loader";
 import profilePhoto from "~/assets/profile.png";
 import { MdVerified } from "react-icons/md";
+import Topbar from "~/components/UI/Topbar";
 
 const Profile = () => {
   const { user, status } = useSelector((store) => store.user);
@@ -81,18 +82,17 @@ const Profile = () => {
   return (
     <>
       <motion.div
-        initial={{ opacity: 0 }}
+        initial={{ opacity: 0.3 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="p-4 h-full w-full"
+        transition={{ duration: 0.7 }}
+        className="p-6 h-full w-full"
       >
-        <Breadcrumb
+        <Topbar
           firstLabel={"Anasayfa"}
           firstLink={"/"}
-          secondLabel={"Profil"}
-          secondLink={"/profile"}
+          secondLabel={"Profilim"}
         />
-        <div className="w-full px-4 py-2 flex justify-start gap-x-3 items-center">
+        <div className="w-full  py-2 flex justify-start gap-x-3 items-center">
           <div className="relative">
             <img src={profilePhoto} className="w-20 rounded-full shadow-md" />
           </div>
@@ -131,22 +131,26 @@ const Profile = () => {
               </div>
               <div className="grid grid-cols-3 w-full gap-5">
                 {profileInputs.map((input) => (
-                  <div
-                    key={input.id}
-                    className={`w-full px-4 h-12 rounded-md border flex items-center gap-x-5 ${
-                      !isEditMode && "bg-zinc-100 text-zinc-400"
-                    } `}
-                  >
-                    <input
-                      placeholder={input.placeholder}
-                      className=" outline-none w-full h-10 bg-transparent "
-                      disabled={!isEditMode}
-                      defaultValue={user[input.name]}
-                      {...register(input.name)}
-                    />
-                    <span className={`p-1 rounded-md  text-primary`}>
-                      <input.icon size={25} />
+                  <div key={input.id} className="flex flex-col gap-2">
+                    <span className="text-sm text-zinc-500">
+                      {input.placeholder}
                     </span>
+                    <div
+                      className={`w-full px-4 h-12 rounded-md border flex items-center gap-x-5 ${
+                        !isEditMode && "bg-zinc-100 text-zinc-400"
+                      } `}
+                    >
+                      <input
+                        placeholder={input.placeholder}
+                        className=" outline-none w-full h-10 bg-transparent "
+                        disabled={!isEditMode}
+                        defaultValue={user[input.name]}
+                        {...register(input.name)}
+                      />
+                      <span className={`p-1 rounded-md  text-primary`}>
+                        <input.icon size={25} />
+                      </span>
+                    </div>
                   </div>
                 ))}
               </div>

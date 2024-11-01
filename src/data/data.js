@@ -34,7 +34,7 @@ export const mainSide = [
   { id: 2, label: "Profilim", icon: TbUser, path: "/profile" },
   {
     id: 3,
-    label: "Bütçe Yönetimi",
+    label: "Bütçe",
     icon: TbMoneybag,
     path: "/budget-management",
   },
