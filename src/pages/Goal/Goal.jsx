@@ -83,7 +83,11 @@ const Goal = () => {
               <div className="bg-zinc-50 px-4 py-5 flex justify-between items-center rounded-b-md">
                 <div className="w-full h-6 bg-zinc-100 border rounded-full mr-12 p-1">
                   <div
-                    className="h-full bg-zinc-400 max-w-full rounded-full transition-all duration-300"
+                    className={`h-full max-w-full rounded-full transition-all duration-300 ${
+                      goal.goalAccount === goal.goalAmount
+                        ? "bg-secondary"
+                        : "bg-zinc-400"
+                    }`}
                     style={{
                       width: `${(goal.goalAccount / goal.goalAmount) * 100}%`,
                     }}
@@ -91,7 +95,10 @@ const Goal = () => {
                 </div>
 
                 <div className="text-3xl font-semibold text-primary">
-                  ₺{goal.goalAmount}
+                  ₺
+                  {goal.goalAmount <= 0
+                    ? null
+                    : goal.goalAmount - goal.goalAccount}
                 </div>
               </div>
             </div>

@@ -1,10 +1,22 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Loader from "~/components/UI/Loader";
 import Topbar from "~/components/UI/Topbar";
+import { getUserByID } from "~/redux/slices/userSlice";
 
 const Home = () => {
-  const { user } = useSelector((store) => store.user);
+  const { user, status } = useSelector((store) => store.user);
 
+  const dispatch = useDispatch();
   const formattedBudget = new Intl.NumberFormat("tr-TR").format(user.budget);
+
+  useEffect(() => {
+    dispatch(getUserByID(user.uid));
+  }, []);
+
+  if (status === "loading") {
+    return <Loader />;
+  }
 
   return (
     <div className="p-6 w-full h-full ">

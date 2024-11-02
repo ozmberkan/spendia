@@ -28,12 +28,26 @@ const GoalMoneyModal = ({ setIsGoalMoneyModal, selectedGoal }) => {
       const goalRef = doc(db, "goals", selectedGoal);
       const userRef = doc(db, "users", user.uid);
 
-      const goalDoc = await getDoc(goalRef);
       const userDoc = await getDoc(userRef);
+      const goalDoc = await getDoc(goalRef);
 
+      if (userDoc.data().budget < 0) {
+        toast.error("Bütçenizde yeterli para yok.");
+        return;
+      }
+
+      if (data.goalAccount > userDoc.data().budget) {
+        toast.error("Bütçenizde yeterli para yok.");
+        return;
+      }
+
+      if (data.goalAccount > goalDoc.data().goalAmount) {
+        toast.error("Hedeften yüksek tutar girilemez.");
+        return;
+      }
       await updateDoc(goalRef, {
-        goalAccount: Number(data.goalAccount),
-        goalAmount: goalDoc.data().goalAmount - data.goalAccount,
+        goalAccount:
+          Number(goalDoc.data().goalAccount) + Number(data.goalAccount),
       });
 
       await updateDoc(userRef, {
@@ -50,7 +64,7 @@ const GoalMoneyModal = ({ setIsGoalMoneyModal, selectedGoal }) => {
   return ReactDOM.createPortal(
     <div
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50"
-      onClick={() => setIsGoalModal(false)}
+      onClick={() => setIsGoalMoneyModal(false)}
     >
       <motion.div
         initial={{ scale: 0 }}
@@ -62,7 +76,7 @@ const GoalMoneyModal = ({ setIsGoalMoneyModal, selectedGoal }) => {
         <div className="w-full flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold">Hedefe Para Aktar</h2>
           <button
-            onClick={() => setIsGoalModal(false)}
+            onClick={() => setIsGoalMoneyModal(false)}
             className=" text-gray-400 hover:text-gray-600 focus:outline -none"
           >
             <IoCloseSharp size={20} />
