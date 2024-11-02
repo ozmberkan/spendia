@@ -98,7 +98,9 @@ const Goal = () => {
                   ₺
                   {goal.goalAmount <= 0
                     ? null
-                    : goal.goalAmount - goal.goalAccount}
+                    : new Intl.NumberFormat("tr-TR").format(
+                        goal.goalAmount - goal.goalAccount
+                      )}
                 </div>
               </div>
             </div>

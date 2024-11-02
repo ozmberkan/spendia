@@ -15,12 +15,13 @@ import { IoCloseSharp } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { db } from "~/firebase/firebase";
 import { getAllGoals } from "~/redux/slices/goalsSlice";
+import { NumericFormat } from "react-number-format";
 
 const GoalMoneyModal = ({ setIsGoalMoneyModal, selectedGoal }) => {
   const modalRoot = document.getElementById("modal");
   const dispatch = useDispatch();
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
   const { user } = useSelector((state) => state.user);
 
   const sendMoney = async (data) => {
@@ -86,11 +87,20 @@ const GoalMoneyModal = ({ setIsGoalMoneyModal, selectedGoal }) => {
           className="grid grid-cols-1 gap-5"
           onSubmit={handleSubmit(sendMoney)}
         >
-          <input
+          <NumericFormat
+            type="text"
             placeholder="Hedefe Aktarılacak Tutar"
             className="px-4 py-2 rounded-md border w-full outline-none"
-            {...register("goalAccount")}
+            thousandSeparator="."
+            decimalSeparator=","
+            decimalScale={2}
+            fixedDecimalScale={true}
+            prefix="₺"
+            onValueChange={(values) =>
+              setValue("goalAccount", values.floatValue || 0)
+            }
           />
+
           <button className="w-full px-4 py-2 bg-primary text-secondary font-semibold rounded-md">
             Oluştur
           </button>

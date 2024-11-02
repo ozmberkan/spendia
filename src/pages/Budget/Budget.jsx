@@ -8,7 +8,11 @@ const Budget = () => {
   return (
     <div className="p-6 w-full h-full ">
       <Topbar firstLabel={"Anasayfa"} firstLink={"/"} secondLabel={"Bütçe"} />
-      <div className="w-full flex justify-between items-center ">...</div>
+      <div className="w-full flex justify-start items-start ">
+        <div>
+          <button>Gelir Ekle</button>
+        </div>
+      </div>
     </div>
   );
 };
