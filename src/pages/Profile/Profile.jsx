@@ -32,7 +32,8 @@ const Profile = () => {
     defaultValues: {
       displayName: user.displayName,
       phoneNumber: user.phoneNumber,
-      budget: user.budget,
+      monthlyBudget: user.monthlyBudget,
+      currentBudget: user.currentBudget,
     },
   });
 
@@ -43,7 +44,8 @@ const Profile = () => {
       await updateDoc(userRef, {
         displayName: data.displayName,
         phoneNumber: Number(data.phoneNumber),
-        budget: Number(data.budget),
+        monthlyBudget: Number(data.monthlyBudget),
+        currentBudget: Number(data.monthlyBudget),
       });
       toast.success("Profiliniz başarıyla güncellendi.");
       dispatch(getUserByID(user.uid));
@@ -98,7 +100,8 @@ const Profile = () => {
           </div>
           <div>
             <h1 className="text-2xl font-bold text-primary flex gap-x-2 items-center">
-              {user.displayName} {user.premium === true && <MdVerified />}
+              {user.displayName ? user.displayName : "Kullanıcı"}{" "}
+              {user.premium === true && <MdVerified />}
             </h1>
             <p className="text-lg text-primary">{user.email}</p>
           </div>

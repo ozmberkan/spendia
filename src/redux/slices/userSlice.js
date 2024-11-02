@@ -27,7 +27,8 @@ export const registerService = createAsyncThunk(
         email: user.email,
         displayName: user.displayName,
         phoneNumber: user.phoneNumber,
-        budget: 0,
+        currentBudget: 0,
+        monthlyBudget: 0,
         role: "user",
         premium: false,
       };
@@ -61,7 +62,8 @@ export const loginService = createAsyncThunk(
         email: user.email,
         displayName: userDoc.data().displayName,
         phoneNumber: userDoc.data().phoneNumber,
-        budget: userDoc.data().budget,
+        monthlyBudget: userDoc.data().monthlyBudget,
+        currentBudget: userDoc.data().currentBudget,
         role: userDoc.data().role,
         premium: userDoc.data().premium,
       };

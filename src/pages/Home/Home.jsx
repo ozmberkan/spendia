@@ -1,18 +1,53 @@
+import { doc, updateDoc, getDoc } from "firebase/firestore";
+import moment from "moment";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "~/components/UI/Loader";
 import Topbar from "~/components/UI/Topbar";
+import { db } from "~/firebase/firebase";
 import { getUserByID } from "~/redux/slices/userSlice";
 
 const Home = () => {
   const { user, status } = useSelector((store) => store.user);
-
   const dispatch = useDispatch();
-  const formattedBudget = new Intl.NumberFormat("tr-TR").format(user.budget);
+
+  const formattedBudget = new Intl.NumberFormat("tr-TR").format(
+    user.currentBudget
+  );
+  const todayDate = moment().format("DD.MM.YYYY");
+
+  useEffect(() => {
+    const checkAndUpdateBudget = async () => {
+      if (todayDate.slice(0, 2) === "03") {
+        const userRef = doc(db, "users", user.uid);
+        const userSnapshot = await getDoc(userRef);
+
+        if (userSnapshot.exists()) {
+          const lastUpdateDate = userSnapshot.data().lastUpdateDate;
+
+          if (lastUpdateDate !== todayDate) {
+            try {
+              await updateDoc(userRef, {
+                currentBudget: user.monthlyBudget,
+                lastUpdateDate: todayDate,
+              });
+              toast.success("Bütçeniz güncellendi.");
+              dispatch(getUserByID(user.uid));
+            } catch (error) {
+              console.log(error);
+            }
+          }
+        }
+      }
+    };
+
+    checkAndUpdateBudget();
+  }, [todayDate, user.uid]);
 
   useEffect(() => {
     dispatch(getUserByID(user.uid));
-  }, []);
+  }, [dispatch, user.uid]);
 
   if (status === "loading") {
     return <Loader />;

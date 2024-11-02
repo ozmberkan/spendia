@@ -32,12 +32,12 @@ const GoalMoneyModal = ({ setIsGoalMoneyModal, selectedGoal }) => {
       const userDoc = await getDoc(userRef);
       const goalDoc = await getDoc(goalRef);
 
-      if (userDoc.data().budget < 0) {
+      if (userDoc.data().currentBudget < 0) {
         toast.error("Bütçenizde yeterli para yok.");
         return;
       }
 
-      if (data.goalAccount > userDoc.data().budget) {
+      if (data.goalAccount > userDoc.data().currentBudget) {
         toast.error("Bütçenizde yeterli para yok.");
         return;
       }
@@ -60,7 +60,7 @@ const GoalMoneyModal = ({ setIsGoalMoneyModal, selectedGoal }) => {
       });
 
       await updateDoc(userRef, {
-        budget: userDoc.data().budget - data.goalAccount,
+        currentBudget: userDoc.data().currentBudget - data.goalAccount,
       });
 
       dispatch(getAllGoals({ userID: user.uid }));

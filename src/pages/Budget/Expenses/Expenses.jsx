@@ -34,7 +34,7 @@ const Expenses = () => {
 
       await updateDoc(userRef, {
         expenses: arrayUnion(expensesRef.id),
-        budget: user.budget - Number(data.expensesAmount),
+        budget: user.currentBudget - Number(data.expensesAmount),
       });
 
       toast.success("Gider başarıyla eklendi.");

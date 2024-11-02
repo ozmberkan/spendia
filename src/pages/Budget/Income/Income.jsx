@@ -33,7 +33,7 @@ const Income = () => {
 
       await updateDoc(userRef, {
         incomes: arrayUnion(incomeRef.id),
-        budget: user.budget + Number(data.incomeAmount),
+        budget: user.currentBudget + Number(data.incomeAmount),
       });
 
       toast.success("Gelir başarıyla eklendi.");

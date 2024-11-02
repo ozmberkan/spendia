@@ -80,7 +80,7 @@ export const profileInputs = [
   {
     id: 3,
     placeholder: "Bütçe (Aylık Maaş)",
-    name: "budget",
+    name: "monthlyBudget",
     icon: TbMoneybag,
   },
 ];

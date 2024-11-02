@@ -51,7 +51,7 @@ const Budget = () => {
           {netProfit === 0 && "Kâr / Zarar Durumu Mevcut Değil - "}
           {Math.abs(netProfit)}
         </div>
-        <div>{user.budget}</div>
+        <div>{user.currentBudget}</div>
       </div>
 
       <div className="w-full flex justify-between items-start ">
