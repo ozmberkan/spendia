@@ -3,6 +3,7 @@ import { MdOutlineVerified } from "react-icons/md";
 import {
   TbDoorExit,
   TbFlag,
+  TbHistory,
   TbHome,
   TbMessageQuestion,
   TbMoneybag,
@@ -42,7 +43,8 @@ export const mainSide = [
 
 export const goalSide = [
   { id: 1, label: "Hedefler", icon: TbFlag, path: "/goals" },
-  { id: 2, label: "Ayarlarım", icon: TbSettings, path: "settings" },
+  { id: 2, label: "Ayarlarım", icon: TbSettings, path: "/settings" },
+  { id: 2, label: "Geçmiş", icon: TbHistory, path: "/history" },
 ];
 
 export const bottomSide = [

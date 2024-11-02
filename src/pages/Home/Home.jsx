@@ -54,12 +54,29 @@ const Home = () => {
   }
 
   return (
-    <div className="p-6 w-full h-full ">
+    <div className="p-6 w-full h-full flex flex-col gap-4 ">
       <Topbar firstLabel={"Anasayfa"} />
       <div className="w-full flex justify-between items-center ">
-        <h1 className="font-bold text-3xl text-primary">{user.displayName}</h1>
+        <div className="flex flex-col">
+          <h1 className="font-bold text-3xl text-primary">
+            {user.displayName}
+          </h1>
+          <span className="text-sm">{user.email}</span>
+        </div>
         <div className="font-bold text-3xl text-secondary px-4 py-2 rounded-md bg-primary">
           <span>₺{formattedBudget}</span>
+        </div>
+      </div>
+      <div className=" flex-grow grid grid-cols-4 grid-rows-3 gap-5 rounded-xl">
+        <div className="bg-zinc-100 border col-span-3 row-span-1 rounded-xl">
+          Hızlı Kısayollar
+        </div>
+        <div className="bg-zinc-100 border col-span-1 row-span-4 rounded-xl">
+          Gelir Tablosu
+        </div>
+        <div className="bg-zinc-100 border row-span-3 rounded-xl">3</div>
+        <div className=" bg-zinc-100 border row-span-3 col-span-2 rounded-xl">
+          Hedef Tablosu
         </div>
       </div>
     </div>
