@@ -36,12 +36,18 @@ const Sidebar = () => {
         } gap-x-2 items-center px-4 py-2 my-3`}
       >
         <img src={Logo} className="w-10 cursor-pointer" />
-        {isOpen && (
-          <div className="flex flex-col">
-            <span className="font-bold text-primary">Spendia</span>
-            <span className="text-xs">Tutarlı Ol!</span>
-          </div>
-        )}
+        <div
+          className={`flex flex-col transition-all duration-500 ${
+            isOpen ? "opacity-100 scale-100" : "opacity-0 scale-0"
+          }`}
+        >
+          {isOpen && (
+            <>
+              <span className="font-bold text-primary">Spendia</span>
+              <span className="text-xs">Tutarlı Ol!</span>
+            </>
+          )}
+        </div>
       </div>
 
       <div className="w-full h-full px-4 py-2">
@@ -59,14 +65,18 @@ const Sidebar = () => {
                 <Link
                   to={item.path}
                   key={item.id}
-                  className="text-sm border w-full py-2 bg-zinc-100 rounded-md px-4 flex justify-start items-center gap-x-2 hover:bg-zinc-200/50"
+                  className={`text-sm border w-full py-2 bg-zinc-100 rounded-md px-4 flex ${
+                    isOpen ? "justify-start" : "justify-center"
+                  } items-center gap-x-2 hover:bg-zinc-200/50`}
                 >
                   <item.icon size={20} />
-                  {isOpen && (
-                    <span className="transition-all duration-300">
-                      {item.label}
-                    </span>
-                  )}
+                  <div
+                    className={`transition-all duration-700 ${
+                      isOpen ? " opacity-100 scale-100 " : "opacity-0 scale-0 "
+                    }`}
+                  >
+                    {isOpen && <span>{item.label}</span>}
+                  </div>
                 </Link>
               ))}
             </div>
@@ -85,14 +95,18 @@ const Sidebar = () => {
                 <Link
                   to={item.path}
                   key={item.id}
-                  className="text-sm border w-full py-2 bg-zinc-100 rounded-md px-4 flex justify-start items-center gap-x-2 hover:bg-zinc-200/50"
+                  className={`text-sm border w-full py-2 bg-zinc-100 rounded-md px-4 flex ${
+                    isOpen ? "justify-start" : "justify-center"
+                  } items-center gap-x-2 hover:bg-zinc-200/50`}
                 >
                   <item.icon size={20} />
-                  {isOpen && (
-                    <span className="transition-all duration-300">
-                      {item.label}
-                    </span>
-                  )}
+                  <div
+                    className={`transition-all duration-500 ${
+                      isOpen ? "opacity-100 scale-100" : "opacity-0 scale-0"
+                    }`}
+                  >
+                    {isOpen && <span>{item.label}</span>}
+                  </div>
                 </Link>
               ))}
             </div>
@@ -105,7 +119,9 @@ const Sidebar = () => {
                   <Link
                     key={item.id}
                     to={item.path}
-                    className={`text-sm border w-full py-2 bg-zinc-100 rounded-md px-4 flex justify-start items-center gap-x-2 hover:bg-zinc-200/50 ${
+                    className={`text-sm border w-full py-2 bg-zinc-100 rounded-md px-4 flex ${
+                      isOpen ? "justify-start" : "justify-center"
+                    } items-center gap-x-2 hover:bg-zinc-200/50 ${
                       item.label === "Premium" &&
                       "bg-emerald-100 text-emerald-500 font-bold border-emerald-500 shadow-xl shadow-emerald-500/20 relative overflow-hidden hover:bg-emerald-300/50"
                     }`}
@@ -117,24 +133,30 @@ const Sidebar = () => {
                       />
                     )}
                     <item.icon size={20} />
-                    {isOpen && (
-                      <span className="transition-all duration-300">
-                        {item.label}
-                      </span>
-                    )}
+                    <div
+                      className={`transition-all duration-500 ${
+                        isOpen ? "opacity-100 scale-100" : "opacity-0 scale-0"
+                      }`}
+                    >
+                      {isOpen && <span>{item.label}</span>}
+                    </div>
                   </Link>
                 ) : (
                   <button
                     key={item.id}
                     onClick={exit}
-                    className="text-sm border w-full py-2 bg-zinc-100 hover:text-red-500 rounded-md px-4 flex justify-start items-center gap-x-2"
+                    className={`text-sm border w-full py-2 bg-zinc-100 hover:text-red-500 rounded-md px-4 flex ${
+                      isOpen ? "justify-start" : "justify-center"
+                    } items-center gap-x-2`}
                   >
                     <item.icon size={20} />
-                    {isOpen && (
-                      <span className="transition-all duration-300">
-                        {item.label}
-                      </span>
-                    )}
+                    <div
+                      className={`transition-all duration-500 ${
+                        isOpen ? "opacity-100 scale-100" : "opacity-0 scale-0"
+                      }`}
+                    >
+                      {isOpen && <span>{item.label}</span>}
+                    </div>
                   </button>
                 )
               )}

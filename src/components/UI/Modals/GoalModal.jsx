@@ -11,11 +11,13 @@ import ReactDOM from "react-dom";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { IoCloseSharp } from "react-icons/io5";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { db } from "~/firebase/firebase";
+import { getAllGoals } from "~/redux/slices/goalsSlice";
 
 const GoalModal = ({ setIsGoalModal }) => {
   const modalRoot = document.getElementById("modal");
+  const dispatch = useDispatch();
 
   const { register, handleSubmit } = useForm();
   const { user } = useSelector((state) => state.user);
@@ -27,19 +29,20 @@ const GoalModal = ({ setIsGoalModal }) => {
 
       await setDoc(goalRef, {
         goalTitle: data.goalTitle,
-        goalAmount: data.goalAmount,
+        goalAmount: Number(data.goalAmount),
         goalLastDate: moment(data.goalDate).format("DD.MM.YYYY"),
+        goalAccount: 0,
         goalStatus: "pending",
         createdUserID: user.uid,
         createdAt: moment().format("DD.MM.YYYY HH:mm"),
       });
-
       await updateDoc(userRef, {
         goals: arrayUnion(goalRef.id),
       });
 
       toast.success("Hedef başarıyla oluşturuldu.");
       setIsGoalModal(false);
+      dispatch(getAllGoals({ userID: user.uid }));
     } catch (error) {
       console.log(error);
     }
