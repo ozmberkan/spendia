@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Breadcrumb from "~/components/UI/Breadcrumb";
 import Loader from "~/components/UI/Loader";
 import GoalModal from "~/components/UI/Modals/GoalModal";
+import GoalMoneyModal from "~/components/UI/Modals/GoalMoneyModal";
 import Topbar from "~/components/UI/Topbar";
 import { getAllGoals } from "~/redux/slices/goalsSlice";
 
@@ -14,6 +15,9 @@ const Goal = () => {
 
   const { user } = useSelector((store) => store.user);
   const { goals, status } = useSelector((store) => store.goals);
+
+  const [isGoalMoneyModal, setIsGoalMoneyModal] = useState(false);
+  const [selectedGoal, setSelectedGoal] = useState(null);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -26,8 +30,19 @@ const Goal = () => {
     return <Loader />;
   }
 
+  const sendAccount = (goalID) => {
+    setIsGoalMoneyModal(true);
+    setSelectedGoal(goalID);
+  };
+
   return (
     <>
+      {isGoalMoneyModal && (
+        <GoalMoneyModal
+          setIsGoalMoneyModal={setIsGoalMoneyModal}
+          selectedGoal={selectedGoal}
+        />
+      )}
       {isGoalModal && <GoalModal setIsGoalModal={setIsGoalModal} />}
       <motion.div
         initial={{ opacity: 0.3 }}
@@ -53,14 +68,22 @@ const Goal = () => {
             <div key={index} className="border rounded-md shadow-md">
               <div className="w-full py-3 bg-primary rounded-t-md px-4 flex justify-between items-center text-secondary">
                 <span className="font-semibold">{goal.goalTitle}</span>
-                <span className="px-4 py-1 rounded-md text-sm bg-secondary text-primary font-semibold">
-                  {goal.goalLastDate}
-                </span>
+                <div className="flex gap-x-2">
+                  <button
+                    onClick={() => sendAccount(goal.goalID)}
+                    className="px-4 py-1 rounded-md text-sm bg-secondary text-primary font-semibold"
+                  >
+                    Hedefe Para Aktar
+                  </button>
+                  <span className="px-4 py-1 rounded-md text-sm bg-secondary text-primary font-semibold">
+                    {goal.goalLastDate}
+                  </span>
+                </div>
               </div>
               <div className="bg-zinc-50 px-4 py-5 flex justify-between items-center rounded-b-md">
                 <div className="w-full h-6 bg-zinc-100 border rounded-full mr-12 p-1">
                   <div
-                    className="h-full bg-zinc-400 rounded-full transition-all duration-300"
+                    className="h-full bg-zinc-400 max-w-full rounded-full transition-all duration-300"
                     style={{
                       width: `${(goal.goalAccount / goal.goalAmount) * 100}%`,
                     }}

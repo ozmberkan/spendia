@@ -2,6 +2,7 @@ import {
   arrayUnion,
   collection,
   doc,
+  getDoc,
   setDoc,
   updateDoc,
 } from "firebase/firestore";
@@ -15,35 +16,32 @@ import { useDispatch, useSelector } from "react-redux";
 import { db } from "~/firebase/firebase";
 import { getAllGoals } from "~/redux/slices/goalsSlice";
 
-const GoalModal = ({ setIsGoalModal }) => {
+const GoalMoneyModal = ({ setIsGoalMoneyModal, selectedGoal }) => {
   const modalRoot = document.getElementById("modal");
   const dispatch = useDispatch();
 
   const { register, handleSubmit } = useForm();
   const { user } = useSelector((state) => state.user);
 
-  const createGoal = async (data) => {
+  const sendMoney = async (data) => {
     try {
-      const goalRef = doc(collection(db, "goals"));
+      const goalRef = doc(db, "goals", selectedGoal);
       const userRef = doc(db, "users", user.uid);
 
-      await setDoc(goalRef, {
-        goalID: goalRef.id,
-        goalTitle: data.goalTitle,
-        goalAmount: Number(data.goalAmount),
-        goalLastDate: moment(data.goalDate).format("DD.MM.YYYY"),
-        goalAccount: 0,
-        goalStatus: "pending",
-        createdUserID: user.uid,
-        createdAt: moment().format("DD.MM.YYYY HH:mm"),
-      });
-      await updateDoc(userRef, {
-        goals: arrayUnion(goalRef.id),
+      const goalDoc = await getDoc(goalRef);
+      const userDoc = await getDoc(userRef);
+
+      await updateDoc(goalRef, {
+        goalAccount: Number(data.goalAccount),
+        goalAmount: goalDoc.data().goalAmount - data.goalAccount,
       });
 
-      toast.success("Hedef başarıyla oluşturuldu.");
-      setIsGoalModal(false);
+      await updateDoc(userRef, {
+        budget: userDoc.data().budget - data.goalAccount,
+      });
+
       dispatch(getAllGoals({ userID: user.uid }));
+      setIsGoalMoneyModal(false);
     } catch (error) {
       console.log(error);
     }
@@ -62,7 +60,7 @@ const GoalModal = ({ setIsGoalModal }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="w-full flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold">Hedef Oluştur</h2>
+          <h2 className="text-2xl font-bold">Hedefe Para Aktar</h2>
           <button
             onClick={() => setIsGoalModal(false)}
             className=" text-gray-400 hover:text-gray-600 focus:outline -none"
@@ -72,25 +70,13 @@ const GoalModal = ({ setIsGoalModal }) => {
         </div>
         <form
           className="grid grid-cols-1 gap-5"
-          onSubmit={handleSubmit(createGoal)}
+          onSubmit={handleSubmit(sendMoney)}
         >
           <input
-            placeholder="Hedefin Amacı"
+            placeholder="Hedefe Aktarılacak Tutar"
             className="px-4 py-2 rounded-md border w-full outline-none"
-            {...register("goalTitle")}
+            {...register("goalAccount")}
           />
-          <input
-            placeholder="Hedefin Tutarı"
-            className="px-4 py-2 rounded-md border w-full outline-none"
-            {...register("goalAmount")}
-          />
-          <input
-            type="date"
-            min={moment().format("YYYY-MM-DD")}
-            className="px-4 py-2 rounded-md border w-full outline-none"
-            {...register("goalDate")}
-          />
-
           <button className="w-full px-4 py-2 bg-primary text-secondary font-semibold rounded-md">
             Oluştur
           </button>
@@ -101,4 +87,4 @@ const GoalModal = ({ setIsGoalModal }) => {
   );
 };
 
-export default GoalModal;
+export default GoalMoneyModal;
