@@ -10,6 +10,7 @@ import { ring } from "ldrs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactsScheme } from "~/validation/scheme";
 import Breadcrumb from "~/components/UI/Breadcrumb";
+import Topbar from "~/components/UI/Topbar";
 
 const Contacts = () => {
   const {
@@ -52,24 +53,15 @@ const Contacts = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="px-4 py-9 h-full w-full"
+      className="p-6 h-full w-full"
     >
-      <Breadcrumb
+      <Topbar
         firstLabel={"Anasayfa"}
         firstLink={"/"}
         secondLabel={"İletişim"}
-        secondLink={"/contacts"}
       />
-      <div className="w-full flex justify-between items-center">
-        <h1 className="font-bold text-4xl">İletişim</h1>
-      </div>
       <p className="text-zinc-500 font-medium mt-3">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem at quia
-        aspernatur, a, blanditiis recusandae, exercitationem ex totam quis
-        corrupti cumque ea odit ad? Rerum perspiciatis inventore itaque
-        excepturi voluptate adipisci? Veniam aliquid voluptas sequi in beatae
-        mollitia, velit explicabo eius fuga dolore maxime incidunt adipisci nisi
-        nam, obcaecati porro.
+        Bize ulaşmak için aşağıdaki formu doldurabilirsiniz.
       </p>
       <form className="mt-6 " onSubmit={handleSubmit(sendContact)}>
         <div className="w-full flex flex-col gap-y-5">

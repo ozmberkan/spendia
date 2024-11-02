@@ -77,18 +77,18 @@ const GoalModal = ({ setIsGoalModal }) => {
           <input
             placeholder="Hedefin Amacı"
             className="px-4 py-2 rounded-md border w-full outline-none"
-            {...register("goalTitle")}
+            {...register("goalTitle", { required: true })}
           />
           <input
             placeholder="Hedefin Tutarı"
             className="px-4 py-2 rounded-md border w-full outline-none"
-            {...register("goalAmount")}
+            {...register("goalAmount", { required: true })}
           />
           <input
             type="date"
             min={moment().format("YYYY-MM-DD")}
             className="px-4 py-2 rounded-md border w-full outline-none"
-            {...register("goalDate")}
+            {...register("goalDate", { required: true })}
           />
 
           <button className="w-full px-4 py-2 bg-primary text-secondary font-semibold rounded-md">

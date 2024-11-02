@@ -64,47 +64,53 @@ const Goal = () => {
           </button>
         </div>
         <div className="w-full mt-12 grid grid-cols-1 gap-10">
-          {goals.map((goal, index) => (
-            <div key={index} className="border rounded-md shadow-md">
-              <div className="w-full py-3 bg-primary rounded-t-md px-4 flex justify-between items-center text-secondary">
-                <span className="font-semibold">{goal.goalTitle}</span>
-                <div className="flex gap-x-2">
-                  <button
-                    onClick={() => sendAccount(goal.goalID)}
-                    className="px-4 py-1 rounded-md text-sm bg-secondary text-primary font-semibold"
-                  >
-                    Hedefe Para Aktar
-                  </button>
-                  <span className="px-4 py-1 rounded-md text-sm bg-secondary text-primary font-semibold">
-                    {goal.goalLastDate}
-                  </span>
+          {goals.length > 0 ? (
+            goals.map((goal, index) => (
+              <div key={index} className="border rounded-md shadow-md">
+                <div className="w-full py-3 bg-primary rounded-t-md px-4 flex justify-between items-center text-secondary">
+                  <span className="font-semibold">{goal.goalTitle}</span>
+                  <div className="flex gap-x-2">
+                    <button
+                      onClick={() => sendAccount(goal.goalID)}
+                      className="px-4 py-1 rounded-md text-sm bg-secondary text-primary font-semibold"
+                    >
+                      Hedefe Para Aktar
+                    </button>
+                    <span className="px-4 py-1 rounded-md text-sm bg-secondary text-primary font-semibold">
+                      {goal.goalLastDate}
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div className="bg-zinc-50 px-4 py-5 flex justify-between items-center rounded-b-md">
-                <div className="w-full h-6 bg-zinc-100 border rounded-full mr-12 p-1">
-                  <div
-                    className={`h-full max-w-full rounded-full transition-all duration-300 ${
-                      goal.goalAccount === goal.goalAmount
-                        ? "bg-secondary"
-                        : "bg-zinc-400"
-                    }`}
-                    style={{
-                      width: `${(goal.goalAccount / goal.goalAmount) * 100}%`,
-                    }}
-                  ></div>
-                </div>
+                <div className="bg-zinc-50 px-4 py-5 flex justify-between items-center rounded-b-md">
+                  <div className="w-full h-6 bg-zinc-100 border rounded-full mr-12 p-1">
+                    <div
+                      className={`h-full max-w-full rounded-full transition-all duration-300 ${
+                        goal.goalAccount === goal.goalAmount
+                          ? "bg-secondary"
+                          : "bg-zinc-400"
+                      }`}
+                      style={{
+                        width: `${(goal.goalAccount / goal.goalAmount) * 100}%`,
+                      }}
+                    ></div>
+                  </div>
 
-                <div className="text-3xl font-semibold text-primary">
-                  ₺
-                  {goal.goalAmount <= 0
-                    ? null
-                    : new Intl.NumberFormat("tr-TR").format(
-                        goal.goalAmount - goal.goalAccount
-                      )}
+                  <div className="text-3xl font-semibold text-primary">
+                    ₺
+                    {goal.goalAmount <= 0
+                      ? null
+                      : new Intl.NumberFormat("tr-TR").format(
+                          goal.goalAmount - goal.goalAccount
+                        )}
+                  </div>
                 </div>
               </div>
+            ))
+          ) : (
+            <div className="w-full bg-primary px-4 py-2 rounded-md text-secondary font-medium text-lg">
+              Hedefiniz Bulunmamaktadır.
             </div>
-          ))}
+          )}
         </div>
       </motion.div>
     </>

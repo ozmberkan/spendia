@@ -42,6 +42,14 @@ const GoalMoneyModal = ({ setIsGoalMoneyModal, selectedGoal }) => {
         return;
       }
 
+      if (
+        Number(goalDoc.data().goalAccount) + Number(data.goalAccount) >
+        goalDoc.data().goalAmount
+      ) {
+        toast.error("Hedef tutarını aşan bir miktar giremezsiniz.");
+        return;
+      }
+
       if (data.goalAccount > goalDoc.data().goalAmount) {
         toast.error("Hedeften yüksek tutar girilemez.");
         return;
