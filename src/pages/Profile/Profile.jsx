@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserByID } from "~/redux/slices/userSlice";
 import { infinity } from "ldrs";
 import { motion } from "framer-motion";
-import { TbEditCircle, TbLock, TbMailUp } from "react-icons/tb";
+import { TbEditCircle, TbLock, TbMailUp, TbUser } from "react-icons/tb";
 import { FaRegSave } from "react-icons/fa";
 import { profileInputs } from "~/data/data";
 import Breadcrumb from "~/components/UI/Breadcrumb";
@@ -115,7 +115,10 @@ const Profile = () => {
               onSubmit={handleSubmit(saveProfileHandle)}
             >
               <div className="w-full flex justify-between items-center">
-                <h1 className="font-semibold text-xl">Kişisel Bilgileriniz</h1>
+                <h1 className="font-semibold text-xl flex gap-x-1 items-center">
+                  <TbUser />
+                  Kişisel Bilgileriniz
+                </h1>
                 <div className="flex items-center gap-x-2">
                   {isEditMode && (
                     <button

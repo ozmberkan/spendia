@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import { GiReceiveMoney } from "react-icons/gi";
 
 const IncomeProfile = () => {
   const { register, handleSubmit, setValue, reset } = useForm();
@@ -43,7 +44,10 @@ const IncomeProfile = () => {
         onSubmit={handleSubmit(updateProfileIncomes)}
       >
         <div className="w-full flex justify-start items-center">
-          <h1 className="font-semibold text-xl">Gelirlerim</h1>
+          <h1 className="font-semibold text-xl flex gap-x-1 items-center">
+            <GiReceiveMoney />
+            Gelirlerim
+          </h1>
         </div>
         <div className=" w-full flex items-center justify-start gap-x-5 ">
           <div className="grid grid-cols-3 gap-5 w-full">
@@ -55,8 +59,8 @@ const IncomeProfile = () => {
                 {...register("incomeType")}
               >
                 <option value="">Seçiniz..</option>
-                <option value="regular">düzenli</option>
-                <option value="irregular">düzensiz</option>
+                <option value="regular">Düzenli</option>
+                <option value="irregular">Düzensiz</option>
               </select>
             </div>
             <div className="flex flex-col gap-2">

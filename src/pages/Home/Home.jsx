@@ -19,7 +19,7 @@ const Home = () => {
 
   useEffect(() => {
     const checkAndUpdateBudget = async () => {
-      if (todayDate.slice(0, 2) === "03") {
+      if (todayDate.slice(0, 2) === "01") {
         const userRef = doc(db, "users", user.uid);
         const userSnapshot = await getDoc(userRef);
 

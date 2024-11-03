@@ -27,6 +27,7 @@
     "react-router-dom": "^6.27.0",
     "react-select": "^5.8.2",
     "tailwindcss-animated": "^1.1.2",
+    "xlsx": "^0.18.5",
     "zod": "^3.23.8"
   },
   "devDependencies": {
