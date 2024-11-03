@@ -14,7 +14,7 @@ export const getAllIncomes = createAsyncThunk(
     try {
       const incomesRef = collection(db, "incomes");
 
-      const q = query(incomesRef, where("createdUserID", "==", userID));
+      const q = query(incomesRef, where("createdUser", "==", userID));
 
       const snapshot = await getDocs(q);
 

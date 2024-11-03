@@ -14,8 +14,10 @@ import { auth, db } from "~/firebase/firebase";
 import { sendEmailVerification, sendPasswordResetEmail } from "firebase/auth";
 import Loader from "~/components/UI/Loader";
 import profilePhoto from "~/assets/profile.png";
-import { MdVerified } from "react-icons/md";
+import { MdAdd, MdVerified } from "react-icons/md";
 import Topbar from "~/components/UI/Topbar";
+import { NumericFormat } from "react-number-format";
+import IncomeProfile from "./IncomeProfile";
 
 const Profile = () => {
   const { user, status } = useSelector((store) => store.user);
@@ -106,7 +108,7 @@ const Profile = () => {
             <p className="text-lg text-primary">{user.email}</p>
           </div>
         </div>
-        <div className="w-full p-4">
+        <div className="w-full p-4 flex flex-col gap-y-12">
           <div className="w-full flex flex-col gap-y-2 my-5">
             <form
               className="w-full flex flex-col gap-y-5"
@@ -133,8 +135,8 @@ const Profile = () => {
                 </div>
               </div>
               <div className="grid grid-cols-3 w-full gap-5">
-                {profileInputs.map((input) => (
-                  <div key={input.id} className="flex flex-col gap-2">
+                {profileInputs.map((input, i) => (
+                  <div key={i} className="flex flex-col gap-2">
                     <span className="text-sm text-zinc-500">
                       {input.placeholder}
                     </span>
@@ -178,6 +180,7 @@ const Profile = () => {
               </button>
             </div>
           </div>
+          <IncomeProfile />
         </div>
       </motion.div>
     </>

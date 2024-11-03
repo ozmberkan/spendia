@@ -13,6 +13,8 @@ import {
   TbUserCheck,
 } from "react-icons/tb";
 
+import { GiReceiveMoney, GiPayMoney } from "react-icons/gi";
+
 export const loginForm = [
   {
     id: 1,
@@ -35,16 +37,22 @@ export const mainSide = [
   { id: 2, label: "Profilim", icon: TbUser, path: "/profile" },
   {
     id: 3,
-    label: "Bütçe",
-    icon: TbMoneybag,
-    path: "/budget-management",
+    label: "Gelirlerim",
+    icon: GiReceiveMoney,
+    path: "/incomes",
+  },
+  {
+    id: 4,
+    label: "Giderlerim",
+    icon: GiPayMoney,
+    path: "/expenses",
   },
 ];
 
 export const goalSide = [
   { id: 1, label: "Hedefler", icon: TbFlag, path: "/goals" },
   { id: 2, label: "Ayarlarım", icon: TbSettings, path: "/settings" },
-  { id: 2, label: "Geçmiş", icon: TbHistory, path: "/history" },
+  { id: 3, label: "Geçmiş", icon: TbHistory, path: "/history" },
 ];
 
 export const bottomSide = [

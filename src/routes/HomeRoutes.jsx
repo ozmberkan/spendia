@@ -8,6 +8,8 @@ import Settings from "~/pages/Settings/Settings";
 import Premium from "~/pages/Premium/Premium";
 import Contacts from "~/pages/Contacts/Contacts";
 import History from "~/pages/History/History";
+import Incomes from "~/pages/Incomes/Incomes";
+import Expenses from "~/pages/Expenses/Expenses";
 
 export const HomeRoutes = {
   path: "/",
@@ -51,6 +53,16 @@ export const HomeRoutes = {
     {
       path: "/history",
       element: <History />,
+      loader: () => authLoader(["user", "admin"]),
+    },
+    {
+      path: "/incomes",
+      element: <Incomes />,
+      loader: () => authLoader(["user", "admin"]),
+    },
+    {
+      path: "/expenses",
+      element: <Expenses />,
       loader: () => authLoader(["user", "admin"]),
     },
   ],
