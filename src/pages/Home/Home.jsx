@@ -29,7 +29,8 @@ const Home = () => {
           if (lastUpdateDate !== todayDate) {
             try {
               await updateDoc(userRef, {
-                currentBudget: user.monthlyBudget,
+                currentBudget:
+                  userSnapshot.data().currentBudget + user.monthlyBudget,
                 lastUpdateDate: todayDate,
               });
               toast.success("Bütçeniz güncellendi.");

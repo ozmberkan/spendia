@@ -37,7 +37,7 @@ export const getAllExpenses = createAsyncThunk(
     try {
       const expensesRef = collection(db, "expenses");
 
-      const q = query(expensesRef, where("createdUserID", "==", userID));
+      const q = query(expensesRef, where("createdUser", "==", userID));
 
       const snapshot = await getDocs(q);
 

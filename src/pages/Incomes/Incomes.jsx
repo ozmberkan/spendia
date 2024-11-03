@@ -8,11 +8,12 @@ import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "~/firebase/firebase";
 import toast from "react-hot-toast";
 import * as XLSX from "xlsx";
-import { FaRegFileExcel } from "react-icons/fa";
+import { FaRegFileExcel, FaSearch } from "react-icons/fa";
 import IncomeEditModal from "~/components/UI/Modals/IncomeEditModal";
 import { TiEdit } from "react-icons/ti";
 import { TbTrash } from "react-icons/tb";
 import { MdAdd } from "react-icons/md";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 const Incomes = () => {
   const { incomes, status } = useSelector((store) => store.budgets);
@@ -21,11 +22,15 @@ const Incomes = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [selectedIncome, setSelectedIncome] = useState(null);
 
+  const [search, setSearch] = useState("");
+
+  const [filter, setFilter] = useState("");
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllIncomes({ userID: user.uid }));
-  }, [isIncomeModal]);
+  }, []);
 
   if (status === "loading") {
     return <Loader />;
@@ -69,6 +74,15 @@ const Incomes = () => {
     setSelectedIncome(income);
   };
 
+  const filteredIncomes = incomes.filter((income) => {
+    const matchesSearch =
+      `${income.incomeName} ${income.incomeAmount} ${income.createdAt}`
+        .toLowerCase()
+        .includes(search.toLowerCase());
+    const matchesFilter = filter === "" || income.incomeType === filter;
+    return matchesSearch && matchesFilter;
+  });
+
   return (
     <>
       {isIncomeModal && <IncomeAddModal setIsIncomeModal={setIsIncomeModal} />}
@@ -85,17 +99,50 @@ const Incomes = () => {
             firstLink={"/"}
             secondLabel={"Gelirlerim"}
           />
-          <button
-            onClick={() => setIsIncomeModal(true)}
-            className="px-4 py-2 rounded-md bg-primary text-secondary font-medium flex gap-x-1 items-center"
-          >
-            <MdAdd size={20} />
-            Ekle
-          </button>
         </div>
-
+        <div className="flex gap-x-5 items-center w-full justify-between ">
+          <button
+            onClick={handleExcelExport}
+            className="bg-[#147E47] px-4 py-2 text-sm rounded-md text-white font-medium flex gap-x-1 items-center"
+          >
+            <FaRegFileExcel size={20} /> Excel
+          </button>
+          <div className="flex gap-x-4 items-center ">
+            <div className="flex items-center px-4 gap-x-4 h-10 rounded-md border">
+              <label className="text-zinc-500">
+                <FaSearch />
+              </label>
+              <input
+                type="text"
+                className="outline-none h-full"
+                onChange={(e) => setSearch(e.target.value)}
+                value={search}
+                placeholder="Ara..."
+              />
+            </div>
+            <div className="flex items-center px-4 gap-x-4 h-10 rounded-md border">
+              <select
+                type="text"
+                className="outline-none h-full"
+                placeholder="Ara..."
+                onChange={(e) => setFilter(e.target.value)}
+              >
+                <option value="">Hepsi</option>
+                <option value="regular">Düzenli</option>
+                <option value="irregular">Düzensiz</option>
+              </select>
+            </div>
+            <button
+              onClick={() => setIsIncomeModal(true)}
+              className="px-4 py-2 rounded-md bg-primary text-secondary font-medium text-sm flex gap-x-1 items-center "
+            >
+              <MdAdd size={20} />
+              Ekle
+            </button>
+          </div>
+        </div>
         <div className="w-full flex justify-start items-start flex-col gap-x-5 gap-y-5 mt-6 ">
-          <div className="relative overflow-x-auto w-full border">
+          <div className="w-full border">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -117,7 +164,7 @@ const Incomes = () => {
                 </tr>
               </thead>
               <tbody>
-                {incomes.map((income) => (
+                {filteredIncomes.map((income) => (
                   <tr
                     key={income.incomeID}
                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -158,14 +205,6 @@ const Incomes = () => {
               </tbody>
             </table>
           </div>
-        </div>
-        <div className="w-full flex justify-end items-center">
-          <button
-            onClick={handleExcelExport}
-            className="bg-[#147E47] text-white rounded-md px-4 py-2 mt-4 flex items-center gap-1"
-          >
-            <FaRegFileExcel /> Excel
-          </button>
         </div>
       </div>
     </>

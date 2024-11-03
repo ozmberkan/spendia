@@ -89,7 +89,7 @@ export const profileInputs = [
   },
   {
     id: 3,
-    placeholder: "Bütçe (Aylık Maaş)",
+    placeholder: "Ana Gelirim (Aylık Maaş)",
     name: "monthlyBudget",
     icon: TbMoneybag,
   },

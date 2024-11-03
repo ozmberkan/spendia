@@ -6,47 +6,39 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { IoCloseSharp } from "react-icons/io5";
 import { NumericFormat } from "react-number-format";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { db } from "~/firebase/firebase";
-import { getAllIncomes } from "~/redux/slices/budgetsSlice";
 
-const IncomeAddModal = ({ setIsIncomeModal }) => {
+const ExpensesAddModal = ({ setIsExpensesAddModal }) => {
   const modalRoot = document.getElementById("modal");
   const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.user);
   const { register, handleSubmit, setValue, reset } = useForm();
 
-  const dispatch = useDispatch();
-
-  const addIncome = async (data) => {
+  const createExpenses = async (data) => {
     try {
-      const incomesRef = doc(collection(db, "incomes"));
+      const expensesRef = doc(collection(db, "expenses"));
 
-      await setDoc(incomesRef, {
-        incomeID: incomesRef.id,
-        incomeType: data.incomeType,
-        incomeName: data.incomeName,
-        incomeAmount: data.incomeAmount,
+      await setDoc(expensesRef, {
+        expensesID: expensesRef.id,
+        expensesType: data.expensesType,
+        expensesName: data.expensesName,
+        expensesAmount: data.expensesAmount,
         createdUser: user.uid,
         createdAt: moment().format("DD.MM.YYYY HH.mm"),
       });
 
-      toast.success("Gelir başarıyla eklendi.");
-      dispatch(getAllIncomes({ userID: user.uid }));
-      setIsIncomeModal(false);
-      reset();
+      toast.success("Gider başarıyla eklendi.");
+      setIsExpensesAddModal(false);
     } catch (error) {
       console.log(error);
     }
   };
 
   return ReactDOM.createPortal(
-    <div
-      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50"
-      onClick={() => setIsIncomeModal(false)}
-    >
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
@@ -55,9 +47,9 @@ const IncomeAddModal = ({ setIsIncomeModal }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="w-full flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold">Gelir Oluştur</h2>
+          <h2 className="text-2xl font-bold">Gider Oluştur</h2>
           <button
-            onClick={() => setIsIncomeModal(false)}
+            onClick={() => setIsExpensesAddModal(false)}
             className=" text-gray-400 hover:text-gray-600 focus:outline-none"
           >
             <IoCloseSharp size={20} />
@@ -65,14 +57,14 @@ const IncomeAddModal = ({ setIsIncomeModal }) => {
         </div>
         <form
           className="grid grid-cols-1 gap-5"
-          onSubmit={handleSubmit(addIncome)}
+          onSubmit={handleSubmit(createExpenses)}
         >
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-zinc-500">Gelir Tipi</label>
+            <label className="text-sm text-zinc-500">Gider Tipi</label>
             <select
-              placeholder="Gelir Tipi"
+              placeholder="Gider Tipi"
               className="outline-none w-full h-10 bg-transparent border px-4 rounded-md"
-              {...register("incomeType")}
+              {...register("expensesType")}
             >
               <option value="">Seçiniz..</option>
               <option value="regular">Düzenli</option>
@@ -80,18 +72,18 @@ const IncomeAddModal = ({ setIsIncomeModal }) => {
             </select>
           </div>
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-zinc-500">Gelir Adı</label>
+            <label className="text-sm text-zinc-500">Gider Adı</label>
             <input
-              placeholder="Gelir Adı"
+              placeholder="Gider Adı"
               className="outline-none w-full h-10 bg-transparent border px-4 rounded-md"
-              {...register("incomeName")}
+              {...register("expensesName")}
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-zinc-500">Gelir Tutarı</label>
+            <label className="text-sm text-zinc-500">Gider Tutarı</label>
             <NumericFormat
               type="text"
-              placeholder="Gelir Tutarı"
+              placeholder="Gider Tutarı"
               className="px-4 py-2 rounded-md border w-full outline-none"
               thousandSeparator="."
               decimalSeparator=","
@@ -99,7 +91,7 @@ const IncomeAddModal = ({ setIsIncomeModal }) => {
               fixedDecimalScale={true}
               prefix="₺"
               onValueChange={(values) =>
-                setValue("incomeAmount", values.floatValue || 0)
+                setValue("expensesAmount", values.floatValue || 0)
               }
             />
           </div>
@@ -114,4 +106,4 @@ const IncomeAddModal = ({ setIsIncomeModal }) => {
   );
 };
 
-export default IncomeAddModal;
+export default ExpensesAddModal;

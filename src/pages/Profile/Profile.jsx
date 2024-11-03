@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import { TbEditCircle, TbLock, TbMailUp, TbUser } from "react-icons/tb";
 import { FaRegSave } from "react-icons/fa";
 import { profileInputs } from "~/data/data";
-import Breadcrumb from "~/components/UI/Breadcrumb";
 import { useForm } from "react-hook-form";
 import { doc, updateDoc } from "firebase/firestore";
 import toast from "react-hot-toast";
@@ -16,8 +15,6 @@ import Loader from "~/components/UI/Loader";
 import profilePhoto from "~/assets/profile.png";
 import { MdAdd, MdVerified } from "react-icons/md";
 import Topbar from "~/components/UI/Topbar";
-import { NumericFormat } from "react-number-format";
-import IncomeProfile from "./IncomeProfile";
 
 const Profile = () => {
   const { user, status } = useSelector((store) => store.user);
@@ -183,7 +180,6 @@ const Profile = () => {
               </button>
             </div>
           </div>
-          <IncomeProfile />
         </div>
       </motion.div>
     </>

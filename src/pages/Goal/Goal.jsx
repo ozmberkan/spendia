@@ -1,30 +1,40 @@
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
-import { FaUser } from "react-icons/fa";
 import { TbFlag } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
-import Breadcrumb from "~/components/UI/Breadcrumb";
 import Loader from "~/components/UI/Loader";
 import GoalModal from "~/components/UI/Modals/GoalModal";
 import GoalMoneyModal from "~/components/UI/Modals/GoalMoneyModal";
 import Topbar from "~/components/UI/Topbar";
 import { getAllGoals } from "~/redux/slices/goalsSlice";
+import useWindowSize from "react-use/lib/useWindowSize";
+import Confetti from "react-confetti";
 
 const Goal = () => {
   const [isGoalModal, setIsGoalModal] = useState(false);
-
+  const { width, height } = useWindowSize();
   const { user } = useSelector((store) => store.user);
   const { goals, status } = useSelector((store) => store.goals);
-
   const [isGoalMoneyModal, setIsGoalMoneyModal] = useState(false);
   const [selectedGoal, setSelectedGoal] = useState(null);
 
+  const [isConfetti, setIsConfetti] = useState(false);
+  const [triggeredGoals, setTriggeredGoals] = useState([]);
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (user?.uid) {
       dispatch(getAllGoals({ userID: user.uid }));
     }
   }, [user, dispatch]);
+
+  useEffect(() => {
+    if (isConfetti) {
+      const timer = setTimeout(() => setIsConfetti(false), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [isConfetti]);
 
   if (status === "loading") {
     return <Loader />;
@@ -37,6 +47,7 @@ const Goal = () => {
 
   return (
     <>
+      {isConfetti && <Confetti width={width} height={height} />}
       {isGoalMoneyModal && (
         <GoalMoneyModal
           setIsGoalMoneyModal={setIsGoalMoneyModal}
@@ -70,12 +81,18 @@ const Goal = () => {
                 <div className="w-full py-3 bg-primary rounded-t-md px-4 flex justify-between items-center text-secondary">
                   <span className="font-semibold">{goal.goalTitle}</span>
                   <div className="flex gap-x-2">
-                    <button
-                      onClick={() => sendAccount(goal.goalID)}
-                      className="px-4 py-1 rounded-md text-sm bg-secondary text-primary font-semibold"
-                    >
-                      Hedefe Para Aktar
-                    </button>
+                    {goal.goalAccount === goal.goalAmount ? (
+                      <button className="px-4 py-1 rounded-md text-sm bg-secondary text-primary font-semibold">
+                        Hedefi Tamamlanmış Olarak İşaretle
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => sendAccount(goal.goalID)}
+                        className="px-4 py-1 rounded-md text-sm bg-secondary text-primary font-semibold"
+                      >
+                        Hedefe Para Aktar
+                      </button>
+                    )}
                     <span className="px-4 py-1 rounded-md text-sm bg-secondary text-primary font-semibold">
                       {goal.goalLastDate}
                     </span>
@@ -92,7 +109,15 @@ const Goal = () => {
                       style={{
                         width: `${(goal.goalAccount / goal.goalAmount) * 100}%`,
                       }}
-                    ></div>
+                    >
+                      {goal.goalAccount === goal.goalAmount &&
+                      !triggeredGoals.includes(goal.goalID)
+                        ? (() => {
+                            setIsConfetti(true);
+                            setTriggeredGoals((prev) => [...prev, goal.goalID]);
+                          })()
+                        : null}
+                    </div>
                   </div>
 
                   <div className="text-3xl font-semibold text-primary">
