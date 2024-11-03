@@ -6,9 +6,10 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { IoCloseSharp } from "react-icons/io5";
 import { NumericFormat } from "react-number-format";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { db } from "~/firebase/firebase";
+import { getAllExpenses } from "~/redux/slices/budgetsSlice";
 
 const ExpensesAddModal = ({ setIsExpensesAddModal }) => {
   const modalRoot = document.getElementById("modal");
@@ -16,6 +17,8 @@ const ExpensesAddModal = ({ setIsExpensesAddModal }) => {
 
   const { user } = useSelector((state) => state.user);
   const { register, handleSubmit, setValue, reset } = useForm();
+
+  const dispatch = useDispatch();
 
   const createExpenses = async (data) => {
     try {
@@ -27,10 +30,11 @@ const ExpensesAddModal = ({ setIsExpensesAddModal }) => {
         expensesName: data.expensesName,
         expensesAmount: data.expensesAmount,
         createdUser: user.uid,
-        createdAt: moment().format("DD.MM.YYYY HH.mm"),
+        createdAt: moment().format("DD.MM.YYYY HH:mm"),
       });
 
       toast.success("Gider başarıyla eklendi.");
+      dispatch(getAllExpenses({ userID: user.uid }));
       setIsExpensesAddModal(false);
     } catch (error) {
       console.log(error);

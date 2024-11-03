@@ -9,6 +9,11 @@ import Topbar from "~/components/UI/Topbar";
 import { getAllGoals } from "~/redux/slices/goalsSlice";
 import useWindowSize from "react-use/lib/useWindowSize";
 import Confetti from "react-confetti";
+import { TbCircleCheck } from "react-icons/tb";
+import { collection, deleteDoc, doc, setDoc } from "firebase/firestore";
+import { db } from "~/firebase/firebase";
+import moment from "moment";
+import toast from "react-hot-toast";
 
 const Goal = () => {
   const [isGoalModal, setIsGoalModal] = useState(false);
@@ -45,6 +50,45 @@ const Goal = () => {
     setSelectedGoal(goalID);
   };
 
+  const completeGoal = async (goal) => {
+    try {
+      const goalRef = doc(db, "goals", goal.goalID);
+
+      const completeGoals = doc(collection(db, "completeGoals"));
+
+      await setDoc(completeGoals, {
+        id: completeGoals.id,
+        goalID: goal.goalID,
+        goalAccount: goal.goalAccount,
+        goalAmount: goal.goalAmount,
+        goalTitle: goal.goalTitle,
+        goalLastDate: goal.goalLastDate,
+        completedAt: moment().format("DD.MM.YYYY HH:mm"),
+        completedUserID: user.uid,
+      });
+
+      await deleteDoc(goalRef);
+
+      dispatch(getAllGoals({ userID: user.uid }));
+
+      toast.success("Hedef tamamlandı.");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteGoal = (goalID) => {
+    try {
+      const goalRef = doc(db, "goals", goalID);
+      deleteDoc(goalRef);
+      toast.success("Hedef silindi.");
+
+      dispatch(getAllGoals({ userID: user.uid }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       {isConfetti && <Confetti width={width} height={height} />}
@@ -78,22 +122,31 @@ const Goal = () => {
           {goals.length > 0 ? (
             goals.map((goal, index) => (
               <div key={index} className="border rounded-md shadow-md">
-                <div className="w-full py-3 bg-primary rounded-t-md px-4 flex justify-between items-center text-secondary">
+                <div className="w-full py-3 bg-zinc-100 rounded-t-md px-4 flex justify-between items-center text-primary">
                   <span className="font-semibold">{goal.goalTitle}</span>
                   <div className="flex gap-x-2">
                     {goal.goalAccount === goal.goalAmount ? (
-                      <button className="px-4 py-1 rounded-md text-sm bg-secondary text-primary font-semibold">
-                        Hedefi Tamamlanmış Olarak İşaretle
+                      <button
+                        onClick={() => completeGoal(goal)}
+                        className="px-4 py-1 rounded-md text-sm bg-secondary text-primary font-semibold flex items-center gap-x-1"
+                      >
+                        <TbCircleCheck /> Tamamlandı
                       </button>
                     ) : (
                       <button
                         onClick={() => sendAccount(goal.goalID)}
-                        className="px-4 py-1 rounded-md text-sm bg-secondary text-primary font-semibold"
+                        className="px-4 py-1 rounded-md text-sm bg-primary text-secondary font-semibold"
                       >
                         Hedefe Para Aktar
                       </button>
                     )}
-                    <span className="px-4 py-1 rounded-md text-sm bg-secondary text-primary font-semibold">
+                    <button
+                      onClick={() => deleteGoal(goal.goalID)}
+                      className="px-4 py-1 rounded-md text-sm bg-red-300 text-red-500 font-semibold"
+                    >
+                      Hedefi Sil
+                    </button>
+                    <span className="px-4 py-1 rounded-md text-sm bg-zinc-300 text-zinc-400 font-semibold">
                       {goal.goalLastDate}
                     </span>
                   </div>

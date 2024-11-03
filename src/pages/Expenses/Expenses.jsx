@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaRegFileExcel } from "react-icons/fa";
+import { FaRegFileExcel, FaSearch } from "react-icons/fa";
 import { MdAdd } from "react-icons/md";
 import { TbTrash } from "react-icons/tb";
 import { TiEdit } from "react-icons/ti";
@@ -20,13 +20,14 @@ const Expenses = () => {
   const [isExpensesAddModal, setIsExpensesAddModal] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const { user } = useSelector((store) => store.user);
-
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState("");
   const [selectedExpenses, setSelectedExpenses] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllExpenses({ userID: user.uid }));
-  }, [isExpensesAddModal]);
+  }, []);
 
   if (status === "loading") {
     return <Loader />;
@@ -62,6 +63,15 @@ const Expenses = () => {
     }
   };
 
+  const filteredExpenses = expenses.filter((expenses) => {
+    const matchesSearch =
+      `${expenses.expensesName} ${expenses.expensesAmount} ${expenses.createdAt}`
+        .toLowerCase()
+        .includes(search.toLowerCase());
+    const matchesFilter = filter === "" || expenses.expensesType === filter;
+    return matchesSearch && matchesFilter;
+  });
+
   const updateExpenses = (expenses) => {
     setIsEdit(true);
     setSelectedExpenses(expenses);
@@ -93,13 +103,39 @@ const Expenses = () => {
           >
             <FaRegFileExcel size={20} /> Excel
           </button>
-          <button
-            onClick={() => setIsExpensesAddModal(true)}
-            className="px-4 py-2 rounded-md bg-primary text-secondary font-medium text-sm flex gap-x-1 items-center"
-          >
-            <MdAdd size={20} />
-            Ekle
-          </button>
+          <div className="flex gap-x-4 items-center ">
+            <div className="flex items-center px-4 gap-x-4 h-10 rounded-md border">
+              <label className="text-zinc-500">
+                <FaSearch />
+              </label>
+              <input
+                type="text"
+                className="outline-none h-full"
+                onChange={(e) => setSearch(e.target.value)}
+                value={search}
+                placeholder="Ara..."
+              />
+            </div>
+            <div className="flex items-center px-4 gap-x-4 h-10 rounded-md border">
+              <select
+                type="text"
+                className="outline-none h-full"
+                placeholder="Ara..."
+                onChange={(e) => setFilter(e.target.value)}
+              >
+                <option value="">Hepsi</option>
+                <option value="regular">Düzenli</option>
+                <option value="irregular">Düzensiz</option>
+              </select>
+            </div>
+            <button
+              onClick={() => setIsExpensesAddModal(true)}
+              className="px-4 py-2 rounded-md bg-primary text-secondary font-medium text-sm flex gap-x-1 items-center "
+            >
+              <MdAdd size={20} />
+              Ekle
+            </button>
+          </div>
         </div>
         <div className="w-full flex justify-start items-start flex-col gap-x-5 gap-y-5 mt-6 ">
           <div className="relative overflow-x-auto w-full border">
@@ -124,7 +160,7 @@ const Expenses = () => {
                 </tr>
               </thead>
               <tbody>
-                {expenses.map((expense) => (
+                {filteredExpenses.map((expense) => (
                   <tr
                     key={expense.expensesID}
                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -136,7 +172,7 @@ const Expenses = () => {
                       {expense.expensesName}
                     </th>
                     <td className="px-6 py-4">
-                      {expense.expenseType === "regular"
+                      {expense.expensesType === "regular"
                         ? "Düzenli"
                         : "Düzensiz"}
                     </td>

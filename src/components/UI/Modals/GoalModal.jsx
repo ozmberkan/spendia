@@ -11,6 +11,7 @@ import ReactDOM from "react-dom";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { IoCloseSharp } from "react-icons/io5";
+import { NumericFormat } from "react-number-format";
 import { useDispatch, useSelector } from "react-redux";
 import { db } from "~/firebase/firebase";
 import { getAllGoals } from "~/redux/slices/goalsSlice";
@@ -19,7 +20,7 @@ const GoalModal = ({ setIsGoalModal }) => {
   const modalRoot = document.getElementById("modal");
   const dispatch = useDispatch();
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
   const { user } = useSelector((state) => state.user);
 
   const createGoal = async (data) => {
@@ -79,10 +80,18 @@ const GoalModal = ({ setIsGoalModal }) => {
             className="px-4 py-2 rounded-md border w-full outline-none"
             {...register("goalTitle", { required: true })}
           />
-          <input
+          <NumericFormat
+            type="text"
             placeholder="Hedefin Tutarı"
             className="px-4 py-2 rounded-md border w-full outline-none"
-            {...register("goalAmount", { required: true })}
+            thousandSeparator="."
+            decimalSeparator=","
+            decimalScale={2}
+            fixedDecimalScale={true}
+            prefix="₺"
+            onValueChange={(values) =>
+              setValue("goalAmount", values.floatValue || 0)
+            }
           />
           <input
             type="date"

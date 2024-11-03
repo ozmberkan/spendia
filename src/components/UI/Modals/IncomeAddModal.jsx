@@ -30,7 +30,7 @@ const IncomeAddModal = ({ setIsIncomeModal }) => {
         incomeName: data.incomeName,
         incomeAmount: data.incomeAmount,
         createdUser: user.uid,
-        createdAt: moment().format("DD.MM.YYYY HH.mm"),
+        createdAt: moment().format("DD.MM.YYYY HH:mm"),
       });
 
       toast.success("Gelir başarıyla eklendi.");
