@@ -90,7 +90,7 @@ const Register = () => {
                 className="text-sm font-semibold hover:text-zinc-500"
                 to="/forgot-password"
               >
-                Şifremi Unuttum
+                Parolamı Unuttum
               </Link>
             </div>
             <button className="bg-primary flex justify-center items-center px-4 py-2 rounded-md text-secondary font-semibold hover:bg-secondary hover:text-primary transition-colors duration-300">

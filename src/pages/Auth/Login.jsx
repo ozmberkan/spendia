@@ -101,7 +101,7 @@ const Login = () => {
                 to="/forgot-password"
                 className="text-sm font-semibold hover:text-zinc-500"
               >
-                Şifremi Unuttum
+                Parolamı Unuttum
               </Link>
             </div>
             <button

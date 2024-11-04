@@ -18,7 +18,7 @@ const Forgot = () => {
     try {
       await sendPasswordResetEmail(auth, email);
       toast.success(
-        "Şifre sıfırlama bağlantısı e-posta adresinize gönderildi."
+        "Parola sıfırlama bağlantısı e-posta adresinize gönderildi."
       );
       setEmail("");
     } catch (error) {
@@ -49,7 +49,7 @@ const Forgot = () => {
           />
           <h1 className="font-bold text-xl">Parolamı Unuttum</h1>
           <p className="text-sm text-zinc-400">
-            E-Posta girerek şifre sıfırlama bağlantısına ulaşabilirsin.
+            E-Posta girerek parola sıfırlama bağlantısına ulaşabilirsin.
           </p>
           <form className="w-1/2 mt-6 flex flex-col gap-y-4">
             <div className="flex flex-col">
