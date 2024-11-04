@@ -33,9 +33,11 @@ const Home = () => {
   );
   const todayDate = moment().format("DD.MM.YYYY");
 
+  console.log(user.salaryDay);
+
   useEffect(() => {
     const checkAndUpdateBudget = async () => {
-      if (todayDate.slice(0, 2) === "01") {
+      if (todayDate.slice(0, 2) === user.salaryDay) {
         const userRef = doc(db, "users", user.uid);
         const userSnapshot = await getDoc(userRef);
 
@@ -240,7 +242,7 @@ const Home = () => {
               )}
             </div>
           </div>
-          <div className=" bg-white border-t-8 shadow-xl border-primary row-span-4 col-span-2 rounded-xl">
+          <div className="bg-white border-t-8 shadow-xl border-primary row-span-4 col-span-2 rounded-xl">
             <div className="w-full rounded-t-xl  p-3 border-b">
               <span className="font-semibold text-primary flex gap-x-2 items-center">
                 <TbTarget />
@@ -249,7 +251,7 @@ const Home = () => {
             </div>
             <div className="p-3 ">
               {goals.length > 0 ? (
-                <div className="flex flex-col gap-1 w-full border rounded-md ">
+                <div className="flex flex-col gap-1 w-full border rounded-md">
                   <div className="w-full grid grid-cols-4  place-items-center py-2 bg-zinc-100 rounded-t-md">
                     <span className="text-xs uppercase">Başlık</span>
                     <span className="text-xs uppercase">Hedef Tutarı</span>

@@ -3,7 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserByID } from "~/redux/slices/userSlice";
 import { infinity } from "ldrs";
 import { motion } from "framer-motion";
-import { TbEditCircle, TbLock, TbMailUp, TbUser } from "react-icons/tb";
+import {
+  TbEditCircle,
+  TbLock,
+  TbMailUp,
+  TbSettings,
+  TbUser,
+} from "react-icons/tb";
 import { FaRegSave } from "react-icons/fa";
 import { profileInputs } from "~/data/data";
 import { useForm } from "react-hook-form";
@@ -15,11 +21,13 @@ import Loader from "~/components/UI/Loader";
 import profilePhoto from "~/assets/profile.png";
 import { MdAdd, MdVerified } from "react-icons/md";
 import Topbar from "~/components/UI/Topbar";
+import SettingsPopover from "~/components/UI/SettingsPopover";
 
 const Profile = () => {
   const { user, status } = useSelector((store) => store.user);
   const [isEditMode, setIsEditMode] = useState(false);
   const dispatch = useDispatch();
+  const [popOver, setPopOver] = useState(false);
 
   infinity.register();
 
@@ -93,16 +101,19 @@ const Profile = () => {
           firstLink={"/"}
           secondLabel={"Profilim"}
         />
-        <div className="w-full  py-2 flex justify-start gap-x-3 items-center">
+        <div className="w-full py-2 flex justify-start gap-x-3 items-center">
           <div className="relative">
             <img src={profilePhoto} className="w-20 rounded-full shadow-md" />
           </div>
-          <div>
-            <h1 className="text-2xl font-bold text-primary flex gap-x-2 items-center">
-              {user.displayName ? user.displayName : "Kullanıcı"}{" "}
-              {user.premium === true && <MdVerified />}
-            </h1>
-            <p className="text-lg text-primary">{user.email}</p>
+          <div className="flex justify-between items-center w-full px-4">
+            <div>
+              <h1 className="text-2xl font-bold text-primary flex gap-x-2 items-center">
+                {user.displayName ? user.displayName : "Kullanıcı"}{" "}
+                {user.premium === true && <MdVerified />}
+              </h1>
+              <p className="text-lg text-primary">{user.email}</p>
+            </div>
+            <SettingsPopover setPopOver={setPopOver} />
           </div>
         </div>
         <div className="w-full p-4 flex flex-col gap-y-12">
