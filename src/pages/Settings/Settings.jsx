@@ -9,7 +9,16 @@ const Settings = () => {
         firstLink={"/"}
         secondLabel={"Ayarlarım"}
       />
-      <div className="w-full flex justify-between items-center ">...</div>
+      <div className="w-full flex justify-between items-center ">
+        <ul className="list-disc">
+          <li>
+            Kullanıcı Select bazında hangi gün maaşının yenileneceğini
+            seçebilir..
+          </li>
+          <li>Kullanıcı Karanlık Mod / Aydınlık Mod</li>
+          <li>Kullanıcı Bildirimleri açıp kapatabilir.</li>
+        </ul>
+      </div>
     </div>
   );
 };

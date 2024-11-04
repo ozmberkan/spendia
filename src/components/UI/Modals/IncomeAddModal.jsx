@@ -1,4 +1,4 @@
-import { collection, doc, setDoc } from "firebase/firestore";
+import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
 import { motion } from "framer-motion";
 import moment from "moment";
 import ReactDOM from "react-dom";
@@ -24,6 +24,8 @@ const IncomeAddModal = ({ setIsIncomeModal }) => {
     try {
       const incomesRef = doc(collection(db, "incomes"));
 
+      const userRef = doc(db, "users", user.uid);
+
       await setDoc(incomesRef, {
         incomeID: incomesRef.id,
         incomeType: data.incomeType,
@@ -31,6 +33,10 @@ const IncomeAddModal = ({ setIsIncomeModal }) => {
         incomeAmount: data.incomeAmount,
         createdUser: user.uid,
         createdAt: moment().format("DD.MM.YYYY HH:mm"),
+      });
+
+      await updateDoc(userRef, {
+        currentBudget: user.currentBudget + Number(data.incomeAmount),
       });
 
       toast.success("Gelir başarıyla eklendi.");
@@ -43,10 +49,7 @@ const IncomeAddModal = ({ setIsIncomeModal }) => {
   };
 
   return ReactDOM.createPortal(
-    <div
-      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50"
-      onClick={() => setIsIncomeModal(false)}
-    >
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}

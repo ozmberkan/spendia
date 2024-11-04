@@ -4,6 +4,7 @@ import { db } from "~/firebase/firebase";
 
 const initialState = {
   goals: [],
+  completedGoals: [],
   status: "idle",
   errorMessage: "",
 };
@@ -27,6 +28,25 @@ export const getAllGoals = createAsyncThunk(
   }
 );
 
+export const getAllCompleteGoals = createAsyncThunk(
+  "goals/getAllCompleteGoals",
+  async ({ userID }, { rejectWithValue }) => {
+    try {
+      const goalsRef = collection(db, "completeGoals");
+      const q = query(goalsRef, where("completedUserID", "==", userID));
+      const goalsSnapShot = await getDocs(q);
+      const completedGoals = goalsSnapShot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      return completedGoals;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const goalsSlice = createSlice({
   name: "goals",
   initialState,
@@ -41,6 +61,17 @@ export const goalsSlice = createSlice({
         state.goals = action.payload;
       })
       .addCase(getAllGoals.rejected, (state, action) => {
+        state.status = "failed";
+        state.errorMessage = action.payload;
+      })
+      .addCase(getAllCompleteGoals.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getAllCompleteGoals.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.completedGoals = action.payload;
+      })
+      .addCase(getAllCompleteGoals.rejected, (state, action) => {
         state.status = "failed";
         state.errorMessage = action.payload;
       });

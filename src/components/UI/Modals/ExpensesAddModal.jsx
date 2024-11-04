@@ -1,4 +1,4 @@
-import { collection, doc, setDoc } from "firebase/firestore";
+import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
 import { motion } from "framer-motion";
 import moment from "moment";
 import ReactDOM from "react-dom";
@@ -23,6 +23,7 @@ const ExpensesAddModal = ({ setIsExpensesAddModal }) => {
   const createExpenses = async (data) => {
     try {
       const expensesRef = doc(collection(db, "expenses"));
+      const userRef = doc(db, "users", user.uid);
 
       await setDoc(expensesRef, {
         expensesID: expensesRef.id,
@@ -31,6 +32,10 @@ const ExpensesAddModal = ({ setIsExpensesAddModal }) => {
         expensesAmount: data.expensesAmount,
         createdUser: user.uid,
         createdAt: moment().format("DD.MM.YYYY HH:mm"),
+      });
+
+      await updateDoc(userRef, {
+        currentBudget: user.currentBudget - Number(data.expensesAmount),
       });
 
       toast.success("Gider başarıyla eklendi.");
