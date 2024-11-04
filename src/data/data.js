@@ -1,6 +1,7 @@
 import { GoGoal } from "react-icons/go";
 import { MdOutlineVerified } from "react-icons/md";
 import {
+  TbBell,
   TbDoorExit,
   TbFlag,
   TbHistory,
@@ -35,6 +36,7 @@ export const loginForm = [
 export const mainSide = [
   { id: 1, label: "Anasayfa", icon: TbHome, path: "/" },
   { id: 2, label: "Profilim", icon: TbUser, path: "/profile" },
+
   {
     id: 3,
     label: "Gelirlerim",

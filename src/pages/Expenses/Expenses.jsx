@@ -9,7 +9,7 @@ import ExpensesAddModal from "~/components/UI/Modals/ExpensesAddModal";
 import Topbar from "~/components/UI/Topbar";
 import { getAllExpenses } from "~/redux/slices/budgetsSlice";
 import * as XLSX from "xlsx";
-import { deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "~/firebase/firebase";
 import toast from "react-hot-toast";
 import ExpensesEditModal from "~/components/UI/Modals/ExpensesEditModal";
@@ -48,11 +48,17 @@ const Expenses = () => {
     XLSX.writeFile(workbook, "giderler.xlsx");
   };
 
-  const deleteExpenses = async (id) => {
+  const deleteExpenses = async (expenses) => {
     try {
       if (confirm("Gideri silmek istediğinize emin misiniz?")) {
-        const expensesRef = doc(db, "expenses", id);
+        const expensesRef = doc(db, "expenses", expenses.expensesID);
+        const userRef = doc(db, "users", user.uid);
         await deleteDoc(expensesRef);
+
+        await updateDoc(userRef, {
+          currentBudget: user.currentBudget + expenses.expensesAmount,
+        });
+
         toast.success("Gider başarıyla silindi.");
         dispatch(getAllExpenses({ userID: user.uid }));
       } else {
@@ -186,7 +192,7 @@ const Expenses = () => {
                     <td className="px-6 py-4">{expense.createdAt}</td>
                     <td className="px-6 py-4 flex items-center gap-x-2">
                       <button
-                        onClick={() => deleteExpenses(expense.expensesID)}
+                        onClick={() => deleteExpenses(expense)}
                         className="bg-red-100 text-red-500 border border-red-500 hover:bg-red-500 hover:text-white transition-colors rounded-md px-4 py-2"
                       >
                         <TbTrash size={20} />

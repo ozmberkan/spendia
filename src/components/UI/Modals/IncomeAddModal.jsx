@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { db } from "~/firebase/firebase";
 import { getAllIncomes } from "~/redux/slices/budgetsSlice";
+import { getUserByID } from "~/redux/slices/userSlice";
 
 const IncomeAddModal = ({ setIsIncomeModal }) => {
   const modalRoot = document.getElementById("modal");
@@ -41,6 +42,7 @@ const IncomeAddModal = ({ setIsIncomeModal }) => {
 
       toast.success("Gelir başarıyla eklendi.");
       dispatch(getAllIncomes({ userID: user.uid }));
+      dispatch(getUserByID(user.uid));
       setIsIncomeModal(false);
       reset();
     } catch (error) {

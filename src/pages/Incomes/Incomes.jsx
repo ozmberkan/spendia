@@ -4,7 +4,7 @@ import Loader from "~/components/UI/Loader";
 import IncomeAddModal from "~/components/UI/Modals/IncomeAddModal";
 import Topbar from "~/components/UI/Topbar";
 import { getAllIncomes } from "~/redux/slices/budgetsSlice";
-import { deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "~/firebase/firebase";
 import toast from "react-hot-toast";
 import * as XLSX from "xlsx";
@@ -36,14 +36,20 @@ const Incomes = () => {
     return <Loader />;
   }
 
-  const deleteIncome = async (id) => {
+  const deleteIncome = async (income) => {
     try {
       const confirm = window.confirm(
         "Geliri silmek istediğinize emin misiniz?"
       );
       if (confirm) {
-        const incomeRef = doc(db, "incomes", id);
+        const incomeRef = doc(db, "incomes", income.incomeID);
+        const userRef = doc(db, "users", user.uid);
         await deleteDoc(incomeRef);
+
+        await updateDoc(userRef, {
+          currentBudget: user.currentBudget - income.incomeAmount,
+        });
+
         toast.success("Gelir başarıyla silindi.");
         dispatch(getAllIncomes({ userID: user.uid }));
       } else {
@@ -188,7 +194,7 @@ const Incomes = () => {
                     <td className="px-6 py-4">{income.createdAt}</td>
                     <td className="px-6 py-4 flex items-center gap-x-2">
                       <button
-                        onClick={() => deleteIncome(income.incomeID)}
+                        onClick={() => deleteIncome(income)}
                         className="bg-red-100 text-red-500 border border-red-500 hover:bg-red-500 hover:text-white transition-colors rounded-md px-4 py-2"
                       >
                         <TbTrash size={20} />

@@ -65,11 +65,16 @@ const Sidebar = () => {
                 <Link
                   to={item.path}
                   key={item.id}
-                  className={`text-sm border w-full py-2 bg-zinc-100 rounded-md px-4 flex ${
+                  className={`text-sm border w-full py-2 bg-zinc-100 relative rounded-md px-4 flex ${
                     isOpen ? "justify-start" : "justify-center"
                   } items-center gap-x-2 hover:bg-zinc-200/50`}
                 >
                   <item.icon size={20} />
+                  {item.label === "Bildirimler" && (
+                    <span className="h-4 w-4 flex justify-center items-center text-xs rounded-full bg-primary text-white absolute top-0 left-3">
+                      1
+                    </span>
+                  )}
                   <div
                     className={`transition-all duration-700 ${
                       isOpen ? " opacity-100 scale-100 " : "opacity-0 scale-0 "

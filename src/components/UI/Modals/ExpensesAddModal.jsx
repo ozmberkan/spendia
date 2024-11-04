@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { db } from "~/firebase/firebase";
 import { getAllExpenses } from "~/redux/slices/budgetsSlice";
+import { getUserByID } from "~/redux/slices/userSlice";
 
 const ExpensesAddModal = ({ setIsExpensesAddModal }) => {
   const modalRoot = document.getElementById("modal");
@@ -40,6 +41,7 @@ const ExpensesAddModal = ({ setIsExpensesAddModal }) => {
 
       toast.success("Gider başarıyla eklendi.");
       dispatch(getAllExpenses({ userID: user.uid }));
+      dispatch(getUserByID(user.uid));
       setIsExpensesAddModal(false);
     } catch (error) {
       console.log(error);

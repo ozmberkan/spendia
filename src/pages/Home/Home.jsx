@@ -33,8 +33,6 @@ const Home = () => {
   );
   const todayDate = moment().format("DD.MM.YYYY");
 
-  console.log(user.salaryDay);
-
   useEffect(() => {
     const checkAndUpdateBudget = async () => {
       if (todayDate.slice(0, 2) === user.salaryDay) {

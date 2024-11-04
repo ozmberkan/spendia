@@ -39,6 +39,7 @@ export const HomeRoutes = {
       element: <Premium />,
       loader: () => authLoader(["user", "admin"]),
     },
+
     {
       path: "/history",
       element: <History />,
