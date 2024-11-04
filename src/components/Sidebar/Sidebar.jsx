@@ -145,17 +145,19 @@ const Sidebar = () => {
                   <button
                     key={item.id}
                     onClick={exit}
-                    className={`text-sm border w-full py-2 bg-zinc-100 hover:text-red-500 rounded-md px-4 flex ${
+                    className={`text-sm  border-red-500 transition-colors hover:bg-red-500 hover:text-white text-red-500 border w-full py-2 bg-zinc-100  rounded-md px-4 flex ${
                       isOpen ? "justify-start" : "justify-center"
                     } items-center gap-x-2`}
                   >
-                    <item.icon size={20} />
+                    <item.icon size={20} className="" />
                     <div
-                      className={`transition-all duration-500 ${
+                      className={`transition-all duration-500   ${
                         isOpen ? "opacity-100 scale-100" : "opacity-0 scale-0"
                       }`}
                     >
-                      {isOpen && <span>{item.label}</span>}
+                      {isOpen && (
+                        <span className="font-semibold">{item.label}</span>
+                      )}
                     </div>
                   </button>
                 )

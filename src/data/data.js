@@ -51,8 +51,7 @@ export const mainSide = [
 
 export const goalSide = [
   { id: 1, label: "Hedefler", icon: TbFlag, path: "/goals" },
-  { id: 2, label: "Ayarlarım", icon: TbSettings, path: "/settings" },
-  { id: 3, label: "Geçmiş", icon: TbHistory, path: "/history" },
+  { id: 2, label: "Geçmiş", icon: TbHistory, path: "/history" },
 ];
 
 export const bottomSide = [
@@ -104,15 +103,15 @@ export const contactsInputs = [
     icon: TbUserCheck,
   },
   {
-    id: 3,
+    id: 2,
     name: "email",
     placeholder: "E-posta Adresiniz",
     type: "email",
     icon: TbUserCheck,
   },
-  { id: 4, name: "title", placeholder: "Konu", type: "text", icon: GoGoal },
+  { id: 3, name: "title", placeholder: "Konu", type: "text", icon: GoGoal },
   {
-    id: 5,
+    id: 4,
     name: "message",
     placeholder: "Mesajınız",
     type: "text",

@@ -3,7 +3,6 @@ import Home from "~/pages/Home/Home";
 import { authLoader } from "~/loader/authLoader";
 import Profile from "~/pages/Profile/Profile";
 import Goal from "~/pages/Goal/Goal";
-import Settings from "~/pages/Settings/Settings";
 import Premium from "~/pages/Premium/Premium";
 import Contacts from "~/pages/Contacts/Contacts";
 import History from "~/pages/History/History";
@@ -28,11 +27,6 @@ export const HomeRoutes = {
     {
       path: "/goals",
       element: <Goal />,
-      loader: () => authLoader(["user", "admin"]),
-    },
-    {
-      path: "/settings",
-      element: <Settings />,
       loader: () => authLoader(["user", "admin"]),
     },
     {

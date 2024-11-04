@@ -96,7 +96,7 @@ const Home = () => {
           </div>
         </div>
         <div className=" flex-grow grid grid-cols-4 grid-rows-5 gap-5 rounded-xl">
-          <div className="bg-white border-t-8 shadow-xl border-primary  col-span-3 row-span-1 rounded-xl">
+          <div className="bg-white border shadow-lg   col-span-3 row-span-1 rounded-xl">
             <div className="w-full rounded-t-xl p-3 border-b  ">
               <span className="font-semibold text-primary flex gap-x-2 items-center">
                 <MdSwitchAccessShortcut />
@@ -127,7 +127,7 @@ const Home = () => {
               </button>
             </div>
           </div>
-          <div className="bg-white border-t-8 shadow-xl border-primary col-span-1 row-span-5 rounded-xl">
+          <div className="bg-white  shadow-lg border col-span-1 row-span-5 rounded-xl">
             <div className="w-full rounded-t-xl  flex justify-between items-center p-3 border-b">
               <span className="font-semibold text-primary flex gap-x-2 items-center">
                 <GiReceiveMoney />
@@ -183,7 +183,7 @@ const Home = () => {
               )}
             </div>
           </div>
-          <div className="bg-white border-t-8 shadow-xl border-primary row-span-4 rounded-xl">
+          <div className="bg-white border shadow-lg  row-span-4 rounded-xl">
             <div className="w-full rounded-t-xl  p-3 border-b flex justify-between items-center">
               <span className="font-semibold text-primary flex gap-x-2 items-center">
                 <GiPayMoney />
@@ -242,7 +242,7 @@ const Home = () => {
               )}
             </div>
           </div>
-          <div className="bg-white border-t-8 shadow-xl border-primary row-span-4 col-span-2 rounded-xl">
+          <div className="bg-white border shadow-lg  row-span-4 col-span-2 rounded-xl">
             <div className="w-full rounded-t-xl  p-3 border-b">
               <span className="font-semibold text-primary flex gap-x-2 items-center">
                 <TbTarget />
