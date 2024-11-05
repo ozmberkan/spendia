@@ -4,7 +4,14 @@ import Loader from "~/components/UI/Loader";
 import IncomeAddModal from "~/components/UI/Modals/IncomeAddModal";
 import Topbar from "~/components/UI/Topbar";
 import { getAllIncomes } from "~/redux/slices/budgetsSlice";
-import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { db } from "~/firebase/firebase";
 import toast from "react-hot-toast";
 import * as XLSX from "xlsx";
@@ -13,6 +20,7 @@ import IncomeEditModal from "~/components/UI/Modals/IncomeEditModal";
 import { TiEdit } from "react-icons/ti";
 import { TbTrash } from "react-icons/tb";
 import { MdAdd } from "react-icons/md";
+import moment from "moment";
 
 const Incomes = () => {
   const { incomes, status } = useSelector((store) => store.budgets);

@@ -144,7 +144,7 @@ const Sidebar = () => {
                   <button
                     key={item.id}
                     onClick={exit}
-                    className={`text-sm   border-red-500 transition-colors hover:bg-red-500 hover:text-white text-red-500 border w-full py-2 bg-zinc-100  rounded-md px-4 flex ${
+                    className={`text-sm   border-red-500 transition-colors   text-red-500 border w-full py-2 bg-zinc-100  rounded-md px-4 flex ${
                       isOpen ? "justify-start" : "justify-center"
                     } items-center gap-x-2`}
                   >

@@ -1,4 +1,13 @@
-import { doc, updateDoc, getDoc } from "firebase/firestore";
+import {
+  doc,
+  updateDoc,
+  getDoc,
+  where,
+  query,
+  deleteDoc,
+  getDocs,
+  collection,
+} from "firebase/firestore";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -13,7 +22,6 @@ import { getAllExpenses, getAllIncomes } from "~/redux/slices/budgetsSlice";
 import { getAllGoals } from "~/redux/slices/goalsSlice";
 import { getUserByID } from "~/redux/slices/userSlice";
 import { PiMoneyWavy, PiMoneyWavyFill } from "react-icons/pi";
-import { FiAlertCircle } from "react-icons/fi";
 import GoalModal from "~/components/UI/Modals/GoalModal";
 import IncomeAddModal from "~/components/UI/Modals/IncomeAddModal";
 import ExpensesAddModal from "~/components/UI/Modals/ExpensesAddModal";
@@ -59,7 +67,53 @@ const Home = () => {
       }
     };
 
+    const resetIncomes = async (userId) => {
+      try {
+        if (todayDate.slice(0, 2) === "01") {
+          const incomesRef = collection(db, "incomes");
+          const q = query(incomesRef, where("createdUser", "==", userId));
+
+          if (incomes.length === 0) {
+            return;
+          } else {
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach(async (doc) => {
+              await deleteDoc(doc.ref);
+            });
+            toast.success("Gelirleriniz sıfırlandı.");
+            dispatch(getAllIncomes({ userID: user.uid }));
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const resetExpenses = async (userId) => {
+      try {
+        if (todayDate.slice(0, 2) === "01") {
+          const expensesRef = collection(db, "expenses");
+          const q = query(expensesRef, where("createdUser", "==", userId));
+
+          if (incomes.length === 0) {
+            return;
+          } else {
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach(async (doc) => {
+              await deleteDoc(doc.ref);
+            });
+            toast.success("Giderleriniz sıfırlandı.");
+            dispatch(getAllExpenses({ userID: user.uid }));
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     checkAndUpdateBudget();
+    resetIncomes(user.uid);
+    resetExpenses(user.uid);
   }, [todayDate, user.uid]);
 
   useEffect(() => {
