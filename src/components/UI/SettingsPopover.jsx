@@ -80,23 +80,6 @@ const SettingsPopover = () => {
             </div>
 
             <div className="flex flex-col gap-1">
-              <span className="text-xs text-zinc-500">Bildirimler</span>
-              <div className="border flex items-center justify-center gap-x-5 px-4 h-10 rounded-md">
-                <label>
-                  <TbBell size={20} />{" "}
-                </label>
-                <select
-                  {...register("notificationAllow")}
-                  className="w-24 outline-none h-full text-sm"
-                >
-                  <option value="">Seçiniz..</option>
-                  <option value={true}>Açık</option>
-                  <option value={false}>Kapalı</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-1">
               <span className="text-xs text-zinc-500">Tema</span>
               <div className="border flex items-center justify-center gap-x-5 px-4 h-10 rounded-md">
                 <label>
@@ -106,9 +89,9 @@ const SettingsPopover = () => {
                   className="w-24 outline-none h-full text-sm"
                   {...register("theme")}
                 >
-                  <option value="">Seçiniz..</option>
-                  <option value="dark">Karanlık</option>
-                  <option value="light">Aydınlık</option>
+                  <option value="">Yakında..</option>
+                  <option value="dark">Yakında</option>
+                  <option value="light">Yakında</option>
                 </select>
               </div>
             </div>

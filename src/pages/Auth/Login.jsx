@@ -56,20 +56,20 @@ const Login = () => {
       transition={{ duration: 1 }}
       className="flex justify-center items-center h-screen flex-grow"
     >
-      <div className="w-1/2 h-full p-3">
-        <div className="w-full h-full flex items-center justify-center flex-col gap-1 p-4">
+      <div className="lg:w-1/2 w-full h-full lg:p-3 p-2">
+        <div className="w-full h-full flex items-center lg:justify-center flex-col gap-1 p-4">
           <img
             src={Logo}
-            className="w-12 drop-shadow-xl mb-6 hover:scale-105 transition-all duration-300"
+            className="w-12 drop-shadow-xl mb-6 hover:scale-105 transition-all duration-300 "
           />
-          <h1 className="font-bold text-xl">
+          <h1 className="font-bold text-xl text-center">
             Tekrardan Spendia'ya Hoş Geldin!
           </h1>
-          <p className="text-sm text-zinc-400">
+          <p className="text-sm text-zinc-400 text-center">
             E-Posta ve parolanı girerek sisteme ulaşabilirsin.
           </p>
           <form
-            className="w-1/2 mt-6 flex flex-col gap-y-4"
+            className="lg:w-1/2 w-full mt-6 flex flex-col gap-y-4"
             onSubmit={handleSubmit(loginHandle)}
           >
             {loginForm.map((input) => (
@@ -123,7 +123,7 @@ const Login = () => {
             <div className="relative flex items-center w-full py-5">
               <div className="flex-grow h-px bg-zinc-700"></div>
               <span className="absolute left-1/2 -translate-x-1/2 bg-white px-2 text-zinc-700">
-                OR
+                YA DA
               </span>
               <div className="flex-grow h-px bg-zinc-700"></div>
             </div>
@@ -150,7 +150,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <div className="w-1/2 h-full p-3">
+      <div className="w-1/2 h-full p-3 lg:block hidden">
         <div className="bg-[#202020] rounded-xl shadow-xl h-full flex justify-center items-center">
           <img src={Logo2} className="w-[700px] drop-shadow-custom" />
         </div>

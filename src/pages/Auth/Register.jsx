@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import Logo from "~/assets/signinlogo.svg";
 import Logo2 from "~/assets/icon.svg";
 import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 const Register = () => {
   ring.register();
@@ -46,19 +47,26 @@ const Register = () => {
   }, [status]);
 
   return (
-    <div className="flex justify-center items-center h-screen flex-grow">
-      <div className="w-1/2 h-full p-3">
-        <div className="w-full h-full flex items-center justify-center flex-col gap-1 p-4">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      className="flex justify-center items-center h-screen flex-grow"
+    >
+      <div className="lg:w-1/2 w-full h-full p-3">
+        <div className="w-full h-full flex items-center lg:justify-center flex-col gap-1 p-4">
           <img
             src={Logo}
             className="w-12 drop-shadow-xl mb-6 hover:scale-105 transition-all duration-300"
           />
-          <h1 className="font-bold text-xl">Spendia'ya Kayıt Ol!</h1>
-          <p className="text-sm text-zinc-400">
+          <h1 className="font-bold text-xl text-center">
+            Spendia'ya Kayıt Ol!
+          </h1>
+          <p className="text-sm text-zinc-400 text-center">
             E-Posta ve parolanı girerek sisteme kayıt olabilirsin.
           </p>
           <form
-            className="w-1/2 mt-6 flex flex-col gap-y-4"
+            className="lg:w-1/2 w-full mt-6 flex flex-col gap-y-4"
             onSubmit={handleSubmit(registerHandle)}
           >
             {loginForm.map((input) => (
@@ -122,12 +130,12 @@ const Register = () => {
           </div>
         </div>
       </div>
-      <div className="w-1/2 h-full p-3">
+      <div className="w-1/2 h-full p-3 lg:block hidden">
         <div className="bg-[#202020] rounded-xl shadow-xl h-full flex justify-center items-center">
           <img src={Logo2} className="w-[700px] drop-shadow-custom" />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

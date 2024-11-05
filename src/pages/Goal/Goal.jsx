@@ -113,12 +113,12 @@ const Goal = () => {
         <div className="w-full flex justify-end items-center">
           <button
             onClick={() => setIsGoalModal(true)}
-            className="px-4 py-2 rounded-md bg-primary text-secondary font-semibold flex items-center gap-x-1"
+            className="px-4 py-2 rounded-md bg-primary hover:bg-secondary hover:text-primary transition-colors text-secondary font-semibold flex items-center gap-x-1"
           >
             <TbFlag size={20} /> Hedef Ekle
           </button>
         </div>
-        <div className="w-full mt-12 grid grid-cols-1 gap-10">
+        <div className="w-full mt-6 grid grid-cols-1 gap-10">
           {goals.length > 0 ? (
             goals.map((goal, index) => (
               <div key={index} className="border rounded-md shadow-md">
@@ -185,7 +185,7 @@ const Goal = () => {
               </div>
             ))
           ) : (
-            <div className="w-full bg-primary px-4 py-2 rounded-md text-secondary font-medium text-lg">
+            <div className="w-full bg-red-100 px-4 py-2 rounded-md text-red-500 font-medium text-sm">
               Hedefiniz Bulunmamaktadır.
             </div>
           )}

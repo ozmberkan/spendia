@@ -41,17 +41,17 @@ const Forgot = () => {
 
   return (
     <div className="flex justify-center items-center h-screen flex-grow">
-      <div className="w-1/2 h-full p-3">
-        <div className="w-full h-full flex items-center justify-center flex-col gap-1 p-4">
+      <div className="lg:w-1/2 w-full h-full p-3">
+        <div className="w-full h-full flex items-center lg:justify-center flex-col gap-1 p-4">
           <img
             src={Logo}
             className="w-12 drop-shadow-xl mb-6 hover:scale-105 transition-all duration-300"
           />
-          <h1 className="font-bold text-xl">Parolamı Unuttum</h1>
-          <p className="text-sm text-zinc-400">
+          <h1 className="font-bold text-xl text-center">Parolamı Unuttum</h1>
+          <p className="text-sm text-zinc-400 text-center">
             E-Posta girerek parola sıfırlama bağlantısına ulaşabilirsin.
           </p>
-          <form className="w-1/2 mt-6 flex flex-col gap-y-4">
+          <form className="lg:w-1/2 w-full mt-6 flex flex-col gap-y-4">
             <div className="flex flex-col">
               <label className={`text-xs font-semibold text-zinc-500 `}>
                 E-Posta
@@ -87,7 +87,7 @@ const Forgot = () => {
           </div>
         </div>
       </div>
-      <div className="w-1/2 h-full p-3">
+      <div className="w-1/2 h-full p-3 lg:block hidden">
         <div className="bg-[#202020] rounded-xl shadow-xl h-full flex justify-center items-center">
           <img src={Logo2} className="w-[700px] drop-shadow-custom" />
         </div>

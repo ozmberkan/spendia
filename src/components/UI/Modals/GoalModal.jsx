@@ -10,6 +10,7 @@ import moment from "moment";
 import ReactDOM from "react-dom";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { FiAlertCircle } from "react-icons/fi";
 import { IoCloseSharp } from "react-icons/io5";
 import { NumericFormat } from "react-number-format";
 import { useDispatch, useSelector } from "react-redux";
@@ -63,10 +64,16 @@ const GoalModal = ({ setIsGoalModal }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="w-full flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold">Hedef Oluştur</h2>
+          <div className="flex flex-col gap-2">
+            <h2 className="text-2xl font-bold">Hedef Oluştur</h2>
+            <p className="flex items-center gap-x-1 text-sm text-zinc-500">
+              <FiAlertCircle /> Hedeflerinizi oluşturun, takip edin ve yönetin!
+            </p>
+          </div>
+
           <button
             onClick={() => setIsGoalModal(false)}
-            className=" text-gray-400 hover:text-gray-600 focus:outline -none"
+            className=" text-gray-400 hover:text-gray-600 focus:outline-none"
           >
             <IoCloseSharp size={20} />
           </button>

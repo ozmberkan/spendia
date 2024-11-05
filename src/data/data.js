@@ -57,22 +57,22 @@ export const goalSide = [
 ];
 
 export const bottomSide = [
+  // {
+  //   id: 1,
+  //   label: "Premium",
+  //   icon: MdOutlineVerified,
+  //   path: "/premium",
+  //   type: "link",
+  // },
   {
     id: 1,
-    label: "Premium",
-    icon: MdOutlineVerified,
-    path: "/premium",
-    type: "link",
-  },
-  {
-    id: 2,
     label: "İletişim",
     icon: TbMessageQuestion,
     path: "/contacts",
     type: "link",
   },
 
-  { id: 3, label: "Çıkış Yap", icon: TbDoorExit, type: "button" },
+  { id: 2, label: "Çıkış Yap", icon: TbDoorExit, type: "button" },
 ];
 
 export const profileInputs = [
