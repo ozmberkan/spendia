@@ -15,7 +15,7 @@ const Topbar = ({ firstLabel, firstLink, secondLabel, secondLink }) => {
 
   return (
     <div className="w-full mb-5 flex gap-x-2 items-center">
-      <div className="pr-2 border-r flex ">
+      <div className="pr-2 border-r lg:flex hidden ">
         <button
           onClick={toggleSidebarHandle}
           className="text-zinc-500 hover:text-zinc-400"

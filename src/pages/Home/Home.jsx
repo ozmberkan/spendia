@@ -84,17 +84,17 @@ const Home = () => {
         <Topbar firstLabel={"Anasayfa"} />
         <div className="w-full flex justify-between items-center ">
           <div className="flex flex-col">
-            <h1 className="font-bold text-3xl text-primary">
-              {user.displayName}
+            <h1 className="font-bold lg:text-3xl text-sm text-primary">
+              {user.displayName ? user.displayName : "Kullanıcı"}
             </h1>
             <span className="text-xs text-primary">{user.email}</span>
           </div>
-          <div className="font-bold text-3xl text-secondary px-4 py-2 rounded-md bg-primary">
+          <div className="font-bold lg:text-3xl text-secondary lg:px-4 px-2 py-2 rounded-md bg-primary">
             <span>₺{formattedBudget}</span>
           </div>
         </div>
-        <div className=" flex-grow grid grid-cols-4 grid-rows-5 gap-5 rounded-xl">
-          <div className="bg-white border shadow-lg   col-span-3 row-span-1 rounded-xl">
+        <div className=" flex-grow grid lg:grid-cols-4 grid-cols-1 lg:grid-rows-5 gap-5 rounded-xl">
+          <div className="bg-white border shadow-lg  lg:col-span-3 lg:row-span-1 rounded-xl">
             <div className="w-full rounded-t-xl p-3 border-b  ">
               <span className="font-semibold text-primary flex gap-x-2 items-center">
                 <MdSwitchAccessShortcut />
@@ -104,28 +104,28 @@ const Home = () => {
             <div className="w-full p-3 grid grid-cols-3 gap-5">
               <button
                 onClick={() => setIsGoalModal(true)}
-                className="px-4  py-2 text-primary rounded-md bg-white border-2 border-primary flex gap-x-1 items-center hover:bg-primary hover:text-white"
+                className="px-4  py-2 text-primary rounded-md bg-white border-2 border-primary flex gap-x-1 justify-center lg:justify-start items-center hover:bg-primary hover:text-white"
               >
                 <TbTarget size={20} />
-                Hedef Ekle
+                <span className="lg:block hidden">Hedef Ekle</span>
               </button>
               <button
                 onClick={() => setIsIncomeModal(true)}
-                className="px-4 py-2 text-primary rounded-md bg-white border-2 border-primary flex gap-x-1 items-center hover:bg-primary hover:text-white"
+                className="px-4 py-2 text-primary rounded-md bg-white border-2 border-primary flex gap-x-1 justify-center lg:justify-start items-center hover:bg-primary hover:text-white"
               >
                 <GiReceiveMoney size={20} />
-                Gelir Ekle
+                <span className="lg:block hidden">Gelir Ekle</span>
               </button>
               <button
                 onClick={() => setIsExpensesAddModal(true)}
-                className="px-4 py-2 text-primary rounded-md bg-white border-2 border-primary flex gap-x-1 items-center hover:bg-primary hover:text-white"
+                className="px-4 py-2 text-primary rounded-md bg-white border-2 border-primary flex gap-x-1 justify-center lg:justify-start items-center hover:bg-primary hover:text-white"
               >
                 <GiPayMoney size={20} />
-                Gider Ekle
+                <span className="lg:block hidden">Gider Ekle</span>
               </button>
             </div>
           </div>
-          <div className="bg-white  shadow-lg border col-span-1 row-span-5 rounded-xl">
+          <div className="bg-white  shadow-lg border lg:col-span-1 lg:row-span-5 rounded-xl">
             <div className="w-full rounded-t-xl  flex justify-between items-center p-3 border-b">
               <span className="font-semibold text-primary flex gap-x-2 items-center">
                 <GiReceiveMoney />
@@ -174,14 +174,14 @@ const Home = () => {
                   </div>
                 ))
               ) : (
-                <div className="text-primary font-medium flex items-center gap-x-1">
+                <div className="text-primary font-medium lg:text-sm text-xs flex items-center gap-x-1">
                   <TbAlertCircle />
                   Henüz bir gelir bulunmamaktadır.
                 </div>
               )}
             </div>
           </div>
-          <div className="bg-white border shadow-lg  row-span-4 rounded-xl">
+          <div className="bg-white border shadow-lg  lg:row-span-4 rounded-xl">
             <div className="w-full rounded-t-xl  p-3 border-b flex justify-between items-center">
               <span className="font-semibold text-primary flex gap-x-2 items-center">
                 <GiPayMoney />
@@ -233,14 +233,14 @@ const Home = () => {
                   </div>
                 ))
               ) : (
-                <div className="text-primary font-medium flex items-center gap-x-1">
+                <div className="text-primary lg:text-sm text-xs font-medium flex items-center gap-x-1">
                   <TbAlertCircle />
                   Henüz bir gider bulunmamaktadır.
                 </div>
               )}
             </div>
           </div>
-          <div className="bg-white border shadow-lg  row-span-4 col-span-2 rounded-xl">
+          <div className="bg-white border shadow-lg  lg:row-span-4 lg:col-span-2 rounded-xl">
             <div className="w-full rounded-t-xl  p-3 border-b">
               <span className="font-semibold text-primary flex gap-x-2 items-center">
                 <TbTarget />
@@ -286,7 +286,7 @@ const Home = () => {
                   </div>
                 </div>
               ) : (
-                <div className="text-primary font-medium flex items-center gap-x-1">
+                <div className="text-primary lg:text-sm text-xs font-medium flex items-center gap-x-1">
                   <TbAlertCircle />
                   Henüz bir hedef bulunmamaktadır.
                 </div>

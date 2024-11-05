@@ -27,12 +27,12 @@ const Sidebar = () => {
   return (
     <div
       className={`h-full border-r flex flex-col transition-all duration-700 items-center justify-start bg-zinc-50 ${
-        isOpen ? "w-60" : "w-24"
+        isOpen ? "lg:w-60 w-20" : "w-24"
       }`}
     >
       <div
         className={`w-full flex justify-${
-          isOpen ? "start" : "center"
+          isOpen ? " start" : "center"
         } gap-x-2 items-center px-4 py-2 my-3`}
       >
         <img src={Logo} className="w-10 cursor-pointer" />
@@ -43,8 +43,10 @@ const Sidebar = () => {
         >
           {isOpen && (
             <>
-              <span className="font-bold text-primary">Spendia</span>
-              <span className="text-xs">Tutarlı Ol!</span>
+              <span className="font-bold text-primary lg:block hidden">
+                Spendia
+              </span>
+              <span className="text-xs lg:block hidden">Tutarlı Ol!</span>
             </>
           )}
         </div>
@@ -54,7 +56,7 @@ const Sidebar = () => {
         <div className="flex flex-col gap-y-7 h-full">
           <div className="flex flex-col">
             <p
-              className={`text-sm pb-2 border-b border-zinc-300 font-medium text-zinc-400 ${
+              className={`lg:text-sm text-xs text-center lg:text-left pb-2 border-b border-zinc-300 font-medium text-zinc-400 ${
                 !isOpen && "flex justify-center items-center"
               }`}
             >
@@ -65,19 +67,16 @@ const Sidebar = () => {
                 <Link
                   to={item.path}
                   key={item.id}
-                  className={`text-sm border w-full py-2 bg-zinc-100 relative rounded-md px-4 flex ${
+                  className={`text-sm border w-full py-2 bg-zinc-100 rounded-md px-4 flex ${
                     isOpen ? "justify-start" : "justify-center"
                   } items-center gap-x-2 hover:bg-zinc-200/50`}
                 >
-                  <item.icon size={20} />
-                  {item.label === "Bildirimler" && (
-                    <span className="h-4 w-4 flex justify-center items-center text-xs rounded-full bg-primary text-white absolute top-0 left-3">
-                      1
-                    </span>
-                  )}
+                  <span>
+                    <item.icon size={15} />
+                  </span>
                   <div
-                    className={`transition-all duration-700 ${
-                      isOpen ? " opacity-100 scale-100 " : "opacity-0 scale-0 "
+                    className={`transition-all lg:block hidden duration-500 ${
+                      isOpen ? "opacity-100 scale-100" : "opacity-0 scale-0"
                     }`}
                   >
                     {isOpen && <span>{item.label}</span>}
@@ -89,7 +88,7 @@ const Sidebar = () => {
 
           <div className="flex flex-col">
             <p
-              className={`text-sm pb-2 border-b border-zinc-300 font-medium text-zinc-400 ${
+              className={`lg:text-sm text-xs text-center lg:text-left  pb-2 border-b border-zinc-300 font-medium text-zinc-400 ${
                 !isOpen && "flex justify-center items-center"
               }`}
             >
@@ -104,9 +103,11 @@ const Sidebar = () => {
                     isOpen ? "justify-start" : "justify-center"
                   } items-center gap-x-2 hover:bg-zinc-200/50`}
                 >
-                  <item.icon size={20} />
+                  <span>
+                    <item.icon size={15} />
+                  </span>
                   <div
-                    className={`transition-all duration-500 ${
+                    className={`transition-all lg:block hidden duration-500 ${
                       isOpen ? "opacity-100 scale-100" : "opacity-0 scale-0"
                     }`}
                   >
@@ -126,20 +127,13 @@ const Sidebar = () => {
                     to={item.path}
                     className={`text-sm border w-full py-2 bg-zinc-100 rounded-md px-4 flex ${
                       isOpen ? "justify-start" : "justify-center"
-                    } items-center gap-x-2 hover:bg-zinc-200/50 ${
-                      item.label === "Premium" &&
-                      "bg-emerald-100 text-emerald-500 font-bold border-emerald-500 shadow-xl shadow-emerald-500/20 relative overflow-hidden hover:bg-emerald-300/50"
-                    }`}
+                    } items-center gap-x-2 hover:bg-zinc-200/50`}
                   >
-                    {item.label === "Premium" && (
-                      <WiStars
-                        className="absolute top-0 right-0 animate-pulse"
-                        size={70}
-                      />
-                    )}
-                    <item.icon size={20} />
+                    <span>
+                      <item.icon size={15} />
+                    </span>
                     <div
-                      className={`transition-all duration-500 ${
+                      className={`transition-all lg:block hidden duration-500 ${
                         isOpen ? "opacity-100 scale-100" : "opacity-0 scale-0"
                       }`}
                     >
@@ -150,13 +144,13 @@ const Sidebar = () => {
                   <button
                     key={item.id}
                     onClick={exit}
-                    className={`text-sm  border-red-500 transition-colors hover:bg-red-500 hover:text-white text-red-500 border w-full py-2 bg-zinc-100  rounded-md px-4 flex ${
+                    className={`text-sm   border-red-500 transition-colors hover:bg-red-500 hover:text-white text-red-500 border w-full py-2 bg-zinc-100  rounded-md px-4 flex ${
                       isOpen ? "justify-start" : "justify-center"
                     } items-center gap-x-2`}
                   >
                     <item.icon size={20} className="" />
                     <div
-                      className={`transition-all duration-500   ${
+                      className={`transition-all lg:block hidden duration-500   ${
                         isOpen ? "opacity-100 scale-100" : "opacity-0 scale-0"
                       }`}
                     >

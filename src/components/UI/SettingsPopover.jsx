@@ -69,7 +69,7 @@ const SettingsPopover = () => {
                 </label>
                 <select
                   {...register("salaryDay")}
-                  className="w-24 outline-none h-full text-sm"
+                  className="w-24 outline-none h-full text-sm bg-transparent"
                 >
                   <option value="">Seçiniz..</option>
                   <option value="05">5</option>
@@ -86,7 +86,7 @@ const SettingsPopover = () => {
                   <TbMoon size={20} />{" "}
                 </label>
                 <select
-                  className="w-24 outline-none h-full text-sm"
+                  className="w-24 outline-none h-full text-sm bg-transparent"
                   {...register("theme")}
                 >
                   <option value="">Yakında..</option>

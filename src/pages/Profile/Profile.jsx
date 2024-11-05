@@ -94,7 +94,7 @@ const Profile = () => {
         initial={{ opacity: 0.3 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.7 }}
-        className="p-6 h-full w-full"
+        className="p-6 h-full w-full "
       >
         <Topbar
           firstLabel={"Anasayfa"}
@@ -102,50 +102,57 @@ const Profile = () => {
           secondLabel={"Profilim"}
         />
         <div className="w-full py-2 flex justify-start gap-x-3 items-center">
-          <div className="relative">
-            <img src={profilePhoto} className="w-20 rounded-full shadow-md" />
+          <div className="relative lg:block hidden">
+            <img
+              src={profilePhoto}
+              className="lg:w-20  rounded-full shadow-md"
+            />
           </div>
-          <div className="flex justify-between items-center w-full px-4">
+          <div className="flex justify-between items-center w-full lg:px-4">
             <div>
-              <h1 className="text-2xl font-bold text-primary flex gap-x-2 items-center">
+              <h1 className="lg:text-2xl  text-sm font-bold text-primary flex gap-x-2 items-center">
                 {user.displayName ? user.displayName : "Kullanıcı"}{" "}
                 {user.premium === true && <MdVerified />}
               </h1>
-              <p className="text-lg text-primary">{user.email}</p>
+              <p className="lg:text-lg text-xs text-primary">{user.email}</p>
             </div>
             <SettingsPopover setPopOver={setPopOver} />
           </div>
         </div>
-        <div className="w-full p-4 flex flex-col gap-y-12">
+        <div className="w-full lg:p-4 flex flex-col gap-y-12">
           <div className="w-full flex flex-col gap-y-2 my-5">
             <form
               className="w-full flex flex-col gap-y-5"
               onSubmit={handleSubmit(saveProfileHandle)}
             >
               <div className="w-full flex justify-between items-center">
-                <h1 className="font-semibold text-xl flex gap-x-1 items-center">
-                  <TbUser />
+                <h1 className="font-semibold lg:text-xl text-sm flex gap-x-1 items-center">
+                  <span className="lg:flex hidden">
+                    <TbUser />
+                  </span>
                   Kişisel Bilgileriniz
                 </h1>
                 <div className="flex items-center gap-x-2">
                   {isEditMode && (
                     <button
                       type="submit"
-                      className="px-4 py-2 flex items-center gap-x-1 bg-secondary rounded-md text-primary font-semibold"
+                      className="lg:px-4 px-2 py-2 flex items-center gap-x-1 bg-secondary rounded-md text-primary font-semibold"
                     >
-                      <FaRegSave /> Kaydet
+                      <FaRegSave />{" "}
+                      <span className="lg:block hidden">Kaydet</span>
                     </button>
                   )}
                   <button
                     type="button"
                     onClick={() => setIsEditMode(!isEditMode)}
-                    className="px-4 py-2 flex items-center gap-x-1 bg-primary rounded-md text-secondary font-semibold"
+                    className="lg:px-4 px-2 py-2 flex items-center gap-x-1 bg-primary rounded-md text-secondary font-semibold"
                   >
-                    <TbEditCircle /> Düzenle
+                    <TbEditCircle />{" "}
+                    <span className="lg:block hidden">Düzenle</span>
                   </button>
                 </div>
               </div>
-              <div className="grid grid-cols-3 w-full gap-5">
+              <div className="grid lg:grid-cols-3 w-full gap-5">
                 {profileInputs.map((input, i) => (
                   <div key={i} className="flex flex-col gap-2">
                     <span className="text-sm text-zinc-500">
@@ -171,10 +178,10 @@ const Profile = () => {
                 ))}
               </div>
             </form>
-            <div className="w-full  py-2 grid grid-cols-2 gap-5">
+            <div className="w-full  py-2 grid lg:grid-cols-2 gap-5">
               <button
                 onClick={sendResetPassword}
-                className="px-4 h-10 flex justify-center items-center gap-x-2 rounded-md border outline-none bg-primary text-secondary font-semibold text-base "
+                className="px-4 h-10 flex justify-center items-center gap-x-2 rounded-md border outline-none bg-primary text-secondary font-semibold lg:text-base text-sm "
               >
                 <TbLock size={20} />
                 Şifre Sıfırla
@@ -182,7 +189,7 @@ const Profile = () => {
               <button
                 onClick={sendVerEmail}
                 disabled={auth.currentUser.emailVerified}
-                className="px-4 h-10 flex justify-center disabled:bg-secondary disabled:text-primary items-center gap-x-2 rounded-md border outline-none bg-primary text-secondary font-semibold text-base  "
+                className="px-4 h-10 flex justify-center disabled:bg-secondary disabled:text-primary items-center gap-x-2 rounded-md border outline-none bg-primary text-secondary font-semibold lg:text-base text-sm  "
               >
                 <TbMailUp size={20} />
                 {auth.currentUser.emailVerified === true

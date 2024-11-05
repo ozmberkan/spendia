@@ -122,27 +122,27 @@ const Goal = () => {
           {goals.length > 0 ? (
             goals.map((goal, index) => (
               <div key={index} className="border rounded-md shadow-md">
-                <div className="w-full py-3 bg-zinc-100 rounded-t-md px-4 flex justify-between items-center text-primary">
+                <div className="w-full py-3 bg-zinc-100 rounded-t-md px-4 flex lg:justify-between lg:flex-row flex-col gap-y-3 items-center text-primary">
                   <span className="font-semibold">{goal.goalTitle}</span>
-                  <div className="flex gap-x-2">
+                  <div className="flex lg:flex-row flex-col lg:w-auto w-full gap-y-2 gap-x-2">
                     {goal.goalAccount === goal.goalAmount ? (
                       <button
                         onClick={() => completeGoal(goal)}
-                        className="px-4 py-1 rounded-md text-sm bg-secondary text-primary font-semibold flex items-center gap-x-1"
+                        className="px-4 py-1 rounded-md lg:text-sm text-xs bg-secondary text-primary font-semibold flex items-center gap-x-1"
                       >
                         <TbCircleCheck /> Tamamlandı
                       </button>
                     ) : (
                       <button
                         onClick={() => sendAccount(goal.goalID)}
-                        className="px-4 py-1 rounded-md text-sm bg-primary text-secondary font-semibold"
+                        className="px-4 py-1 rounded-md lg:text-sm text-xs bg-primary text-secondary font-semibold"
                       >
                         Hedefe Para Aktar
                       </button>
                     )}
                     <button
                       onClick={() => deleteGoal(goal.goalID)}
-                      className="px-4 py-1 rounded-md text-sm bg-red-300 text-red-500 font-semibold"
+                      className="px-4 py-1 rounded-md lg:text-sm text-xs bg-red-300 text-red-500 font-semibold"
                     >
                       Hedefi Sil
                     </button>
