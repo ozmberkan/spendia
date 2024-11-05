@@ -7,15 +7,18 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ring } from "ldrs";
 import { useDispatch, useSelector } from "react-redux";
-import { loginService } from "~/redux/slices/userSlice";
+import { loginService, loginWithGoogle } from "~/redux/slices/userSlice";
 import Logo from "~/assets/signinlogo.svg";
 import Logo2 from "~/assets/icon.svg";
 import toast from "react-hot-toast";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const Login = () => {
   ring.register();
+
+  const provider = new GoogleAuthProvider();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
@@ -26,6 +29,14 @@ const Login = () => {
     resolver: zodResolver(loginScheme),
   });
 
+  const googleLogIn = () => {
+    try {
+      dispatch(loginWithGoogle(provider));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const loginHandle = async (data) => {
     try {
       dispatch(loginService(data));
@@ -33,9 +44,8 @@ const Login = () => {
       console.log(error);
     }
   };
-  const { status } = useSelector((state) => state.user);
 
-  console.log(status);
+  const { status } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (status === "failed") {
@@ -129,17 +139,11 @@ const Login = () => {
             </div>
             <div className=" w-full flex justify-center items-center gap-x-5">
               <button
+                onClick={googleLogIn}
                 type="button"
-                className="bg-white border flex items-center gap-x-2 justify-center w-full px-4 py-2 rounded-md text-zinc-700 font-semibold"
+                className="bg-white border hover:border-zinc-700 transition-colors flex items-center gap-x-2 justify-center w-full px-4 py-2 rounded-md text-zinc-700 font-semibold"
               >
                 <FcGoogle size={20} /> Google
-              </button>{" "}
-              <button
-                type="button"
-                className="bg-white border flex items-center gap-x-2 justify-center w-full px-4 py-2 rounded-md text-zinc-700 font-semibold"
-              >
-                <FaApple size={20} className="text-black" />
-                Apple
               </button>
             </div>
           </form>

@@ -2,8 +2,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
 } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import toast from "react-hot-toast";
 import { auth, db } from "~/firebase/firebase";
 
 const initialState = {
@@ -30,7 +32,6 @@ export const registerService = createAsyncThunk(
         currentBudget: 0,
         monthlyBudget: 0,
         role: "user",
-        premium: false,
       };
 
       const userRef = doc(db, "users", user.uid);
@@ -89,6 +90,36 @@ export const getUserByID = createAsyncThunk(
   }
 );
 
+export const loginWithGoogle = createAsyncThunk(
+  "user/loginWithGoogle",
+  async (provider) => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      console.log(user);
+
+      const userData = {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        phoneNumber: user.phoneNumber,
+        currentBudget: 0,
+        monthlyBudget: 0,
+        role: "user",
+      };
+
+      const userRef = doc(db, "users", user.uid);
+
+      await setDoc(userRef, userData);
+
+      return userData;
+    } catch (error) {
+      console.error("Google ile giriş başarısız:", error);
+    }
+  }
+);
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
@@ -128,6 +159,18 @@ export const userSlice = createSlice({
         localStorage.setItem("user", JSON.stringify(action.payload));
       })
       .addCase(getUserByID.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(loginWithGoogle.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(loginWithGoogle.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.user = action.payload;
+        localStorage.setItem("user", JSON.stringify(action.payload));
+      })
+      .addCase(loginWithGoogle.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });
