@@ -12,6 +12,9 @@ Kişisel finansal yönetimi kolaylaştırır, harcamaları bilinçli hale getiri
 
 **Sunucu:** Firebase
 
+## Teşekkür
+<a href="https://www.instagram.com/ckrcreativecom/">Kerem Çakır</a>'a destekleri için teşekkürler.
+
   
 ## Özellikler
 
